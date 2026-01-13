@@ -1,7 +1,6 @@
 import base64
-import os
 from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from .forms import UploadForm, ConvertForm
 from .services import handle_upload, convert_file
 
@@ -47,7 +46,6 @@ def convert(request, from_ext, to_ext):
     - URL-driven (from_ext → to_ext)
     - Allows re-upload
     - Allows selecting another target format
-    - Returns downloadable converted file
     """
     session_source = request.session.get("source_ext")
     targets = request.session.get("targets", [])
@@ -59,6 +57,8 @@ def convert(request, from_ext, to_ext):
     form = ConvertForm()
     form.fields["target_format"].choices = [(t, t.upper()) for t in targets]
     form.fields["target_format"].initial = to_ext
+
+    output_file = None
 
     if request.method == "POST":
         form = ConvertForm(request.POST)
@@ -74,18 +74,14 @@ def convert(request, from_ext, to_ext):
 
             file_content = base64.b64decode(file_content_b64.encode("ascii"))
 
-            # convert file
-            converted_file = convert_file(file_content, request.session.get("uploaded_file_name"), selected_target)
-
-            # return as downloadable response
-            response = HttpResponse(converted_file, content_type=f"application/octet-stream")
-            # set correct file name
-            base_name, _ = os.path.splitext(request.session.get("uploaded_file_name"))
-            response['Content-Disposition'] = f'attachment; filename="{base_name}.{selected_target}"'
-            return response
+            # call your conversion function
+            output_file = convert_file(
+                file_content, request.session.get("uploaded_file_name"), selected_target
+            )
 
     return render(request, "converter/convert.html", {
         "form": form,
         "from_ext": from_ext,
         "to_ext": to_ext,
+        "output_file": output_file,
     })
