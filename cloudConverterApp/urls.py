@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('', views.convert, name='convert'),
+    path('converter/<str:from>-to-<str:to>/', views.convert, name='convert'),
 ]
