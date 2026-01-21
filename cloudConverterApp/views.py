@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from . import forms
+from django.shortcuts import render
 from .forms import OptionForm, PickFileForm
 from .models import ConvertModel
 from .utils import detect_file_extension
@@ -7,7 +6,7 @@ from .utils import detect_file_extension
 
 def home(request):
     if request.method == 'POST':
-        converter = ConvertModel.objects.get(pk=id)
+        converter = ConvertModel()
         # Options
         if 'from_file' and 'to_file' in request.POST:
             option_form = OptionForm(request.POST)
@@ -20,7 +19,6 @@ def home(request):
                 converter.to_format = to_file
                 converter.save(update_fields=['from_format', 'to_format'])
 
-                return redirect('/')
 
         # Select File
         if 'file_picked' in request.FILES:

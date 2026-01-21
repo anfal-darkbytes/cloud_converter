@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
-
+<form method="POST" enctype="multipart/form-data">
 <!---Main Body-->
 <div class="bg-gradient-to-r from-[#242424] to-[#3a3a3a] h-65 justify-between flex px-100 items-center">
     <!--Details-->
@@ -10,7 +10,8 @@
     </div>
 
     <!--Options-->
-    <form class="flex self-center text-white items-center px-20">
+    <div class="flex self-center text-white items-center px-20">
+
         {% csrf_token %}
         convert
         <label>
@@ -30,28 +31,23 @@
             </select>
         </label>
 
-    </form>
+    </div>
 </div>
 
 
 <!--Select File Button-->
-<form method="POST" class="px-[45%]">
+<div class="px-[45%]">
     {% csrf_token %}
-    <input type="file" id="fileUpload" class="hidden">
+    <input type="file" id="fileUpload" class="hidden" name="file_picked">
     <label for="fileUpload" class="flex items -center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
     border rounded-md my-4
     cursor-pointer hover:bg-[#a0302e] transition">
         <i class="fa-regular fa-file"></i>
-            Select File
-        <select class="font-bold">
-            <option class="text-black" value="png"></option>
-            <option class="text-black" value="pdf"></option>
-            <option class="text-black" value="jpg"></option>
-        </select>
-
-        </label>
-    <input type="submit" value="">
+        Select File
+    </label>
+</div>
 </form>
+
 
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}
