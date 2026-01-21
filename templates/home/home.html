@@ -9,31 +9,49 @@
         <p class="text-white text-wrap w-xl">CloudConvert is an online file converter. We support nearly all audio, video, document, ebook, archive, image, spreadsheet, and presentation formats. To get started, use the button below and select files to convert from your computer.</p>
     </div>
 
-    <!--Form-->
-    <div class="flex self-center text-white items-center px-20">
+    <!--Options-->
+    <form class="flex self-center text-white items-center px-20">
+        {% csrf_token %}
         convert
         <label>
-            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" disabled>
-                <option class="text-black font-bold" value="pdf">. . .</option>
-            </select>
-        </label>
-        to
-        <label>
-            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md">
+            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="from_file">
+                <option class="text-black font-bold" value="pdf" >. . .</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="pdf">PDF</option>
                 <option class="text-black" value="jpg">JPG</option>
             </select>
         </label>
-    </div>
+        to
+        <label>
+            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="to_file">
+                <option class="text-black" value="png">PNG</option>
+                <option class="text-black" value="pdf">PDF</option>
+                <option class="text-black" value="jpg">JPG</option>
+            </select>
+        </label>
+
+    </form>
 </div>
 
+
 <!--Select File Button-->
-<div class="px-[45%]">
-    <button class="text-white bg-[#b53836] text-xl px-12 py-4 border rounded-md my-4">
-        Select File
-    </button>
-</div>
+<form method="POST" class="px-[45%]">
+    {% csrf_token %}
+    <input type="file" id="fileUpload" class="hidden">
+    <label for="fileUpload" class="flex items -center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
+    border rounded-md my-4
+    cursor-pointer hover:bg-[#a0302e] transition">
+        <i class="fa-regular fa-file"></i>
+            Select File
+        <select class="font-bold">
+            <option class="text-black" value="png"></option>
+            <option class="text-black" value="pdf"></option>
+            <option class="text-black" value="jpg"></option>
+        </select>
+
+        </label>
+    <input type="submit" value="">
+</form>
 
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}

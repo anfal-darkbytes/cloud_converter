@@ -1,5 +1,9 @@
 from django import forms
 
-class SelectForm(forms.Form):
-    from_file = forms.FileField()
-    to_file = forms.FileField()
+class OptionForm(forms.Form):
+    from_file = forms.CharField()
+    to_file = forms.CharField()
+
+class PickFileForm(forms.Form):
+    file_picked = forms.FileField()
+
