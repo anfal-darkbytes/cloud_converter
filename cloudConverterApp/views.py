@@ -3,6 +3,8 @@ from .forms import OptionForm, PickFileForm, DataForm
 from .models import ConvertModel
 from .utils import detect_file_extension
 import logging
+import json
+
 
 logger = logging.getLogger('cloudConverterApp/views.py')
 converter = ConvertModel()
@@ -23,14 +25,16 @@ def data(request):
             converter.file_picked = file_picked
             converter.save()
 
-            context = {
+            info = {
                 'from': from_file,
                 'to': to_file,
                 'file': file_picked
             }
+            context = json.dumps(info)
 
             return context
-    return None
+
+    return 'Invalid method'
 
 def convert(request):
     return render(request, 'converter/converter.html')
