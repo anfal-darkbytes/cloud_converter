@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
 <form method="POST" enctype="multipart/form-data">
+
+ {% csrf_token %}
 <!---Main Body-->
 <div class="bg-gradient-to-r from-[#242424] to-[#3a3a3a] h-65 justify-between flex px-100 items-center">
     <!--Details-->
@@ -10,13 +12,13 @@
     </div>
 
     <!--Options-->
+
     <div class="flex self-center text-white items-center px-20">
 
-        {% csrf_token %}
         convert
         <label>
-            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="from_file">
-                <option class="text-black font-bold" value="pdf" >. . .</option>
+            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="from_file" id="from_file" required>
+                <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="pdf">PDF</option>
                 <option class="text-black" value="jpg">JPG</option>
@@ -24,8 +26,8 @@
         </label>
         to
         <label>
-            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="to_file">
-                <option class="text-black font-bold" value="pdf" >. . .</option>
+            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="to_file" id="to_file" required>
+                <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="pdf">PDF</option>
                 <option class="text-black" value="jpg">JPG</option>
@@ -37,18 +39,49 @@
 
 <!--Select File Button-->
 <div class="px-[45%]">
-    {% csrf_token %}
-    <input type="file" id="fileUpload" class="hidden" name="file_picked">
-    <label for="fileUpload" class="flex items -center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
+    <input type="file" id="fileUpload" class="hidden" name="file_picked" required>
+    <label for="fileUpload" class="flex items-center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
+    justify-self-center justify-arround
     border rounded-md my-4
     cursor-pointer hover:bg-[#a0302e] transition">
-        <i class="fa-regular fa-file"></i>
+        <i class="fa-regular fa-file pl-10 pr-6"></i>
         Select File
     </label>
 </div>
 </form>
 
+    {% if error == 'a' %}
+        <div  class="justify-center bg-green-800 text-white px-4 py-6 mx-[30%] border rounded-2xl">
+            <p id="success-message" class="justify-self-center font-sm text-lg">File successfully converted from PNG to
+                JPG
+            </p>
+        </div>
+    {% endif %}
+    <button id='button1' class="justify-center bg-green-800 text-white px-12 py-6 mx-[30%] border
+    rounded-2xl" onclick="postRequest()"> click here </button>
+
 
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}
+    <script>
+    function postRequest() {
+    let fromFile = document.getElementById('from_file').value;
+    let toFile = document.getElementById('to_file').value;
+    let fileInput = document.getElementById('fileUpload').value;
+    let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    let formData = new FormData();
+    formData.append('from_file', fromFile);
+    formData.append('to_file', toFile);
+    formData.append('file_picked', fileInput);
+
+    fetch("{% url 'home' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": csrfToken
+        },
+        body: formData
+    }).then(response => response.json()).catch(error => error)}
+
+    </script>
 {% endblock %}
