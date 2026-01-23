@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import OptionForm, PickFileForm, DataForm
+from .forms import DataForm
 from .models import ConvertModel
 from .utils import detect_file_extension
 import logging
@@ -12,6 +12,7 @@ def home(request):
     if request.method == 'POST':
         data_form = DataForm(request.POST, request.FILES)
 
+        print(f'data form is valid: " {data_form.is_valid()}')
         if data_form.is_valid():
             to_file = data_form.cleaned_data['to_file']
             file_picked = data_form.cleaned_data['file_picked']
@@ -30,6 +31,7 @@ def home(request):
                 'to': to_file,
                 'file': file_picked
             }
+            print(info)
 
             return JsonResponse(info)
 

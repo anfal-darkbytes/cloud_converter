@@ -14,3 +14,6 @@ def detect_file_extension(file):
     }
 
     return mapping.get(mime, os.path.splitext(file.name)[1].replace('.', ''))
+
+
+# def convert_file(file,)
