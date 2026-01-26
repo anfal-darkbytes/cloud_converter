@@ -20,6 +20,7 @@
             <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md" name="from_file" id="from_file" required>
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
+                <option class="text-black" value="png">GIF</option>
                 <option class="text-black" value="pdf">PDF</option>
                 <option class="text-black" value="jpg">JPG</option>
             </select>
@@ -30,6 +31,7 @@
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="pdf">PDF</option>
+                <option class="text-black" value="pdf">GIF</option>
                 <option class="text-black" value="jpg">JPG</option>
             </select>
         </label>
@@ -57,17 +59,37 @@
             </p>
         </div>
     {% endif %}
-    <button id='button1' class="justify-center bg-green-800 text-white px-12 py-6 mx-[30%] border
-    rounded-2xl" onclick="postRequest()"> click here </button>
+    {% if from and to %}
+    <div class="px-[45%]">
+        <button id='button1' class="flex items-center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
+        justify-self-center justify-arround
+        border rounded-md my-4
+        cursor-pointer hover:bg-[#a0302e] transition">
+            <a href="{% url 'convert' slug=from|add:'to'|add:to %}">
+            Convert
+        </a>
+        </button>
+    </div>
+        {% else %}
+        <div class="px-[45%]">
+        <button id='button1' class="flex items-center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
+        justify-self-center
+        border rounded-md my-4
+        cursor-pointer hover:bg-[#a0302e] transition self-items-center items-center content-center" onclick="postRequest
+        ()">
+            Detect File</button>
+    </div>
+    {% endif %}
 
 
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}
+
     <script>
     function postRequest() {
     let fromFile = document.getElementById('from_file').value;
     let toFile = document.getElementById('to_file').value;
-    let fileInput = document.getElementById('fileUpload').value;
+    let fileInput = document.getElementById('fileUpload').files[0];
     let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     let formData = new FormData();
@@ -78,10 +100,17 @@
     fetch("{% url 'home' %}", {
         method: "POST",
         headers: {
-            "X-CSRFToken": csrfToken
+            "X-CSRFToken": csrfToken,
         },
         body: formData
-    }).then(response => response.json()).catch(error => error)}
+    }).then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        console.log(data);
+        console.log(data.data.from);
+        document.getElementById('from_file').value = data.data.from;
+        document.getElementById('to_file').value = data.data.to;
+      })}
 
     </script>
 {% endblock %}
