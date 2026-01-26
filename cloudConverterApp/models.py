@@ -10,10 +10,5 @@ class ConvertModel(models.Model):
     class Meta:
         ordering = ['created_at']
 
-    def save_file(self, file):
-        self.converted = file
-
-
-
     def  __str__(self):
         return f'{self.from_format} to {self.to_format}'

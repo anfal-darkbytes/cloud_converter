@@ -5,6 +5,7 @@ from .utils import detect_file_extension, convert_file
 import logging
 from django.http import JsonResponse
 import datetime
+import os
 
 logger = logging.getLogger('cloudConverterApp/views.py')
 converter = ConvertModel()
@@ -29,11 +30,9 @@ def home(request):
             converter.file_picked = file_picked
             converter.created_at = datetime.datetime.now()
 
-            file_name = file_picked.replace(from_file, '')
+            file_name = os.path.basename(file_picked)
 
-            convert_file(file_picked, from_file, to_file, file_name)
-
-            converter.converted =
+            converter.converted = convert_file(file_picked, to_file, file_name)
             converter.save()
             print(f"from file ext in db: {converter.from_format}")
             print(f"to file ext in db: {converter.to_format}")
