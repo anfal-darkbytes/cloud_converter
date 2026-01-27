@@ -6,7 +6,9 @@
     <!--Details-->
     <div>
         <h1 class="text-white font-bold text-3xl pb-2">File Converter</h1>
-        <p class="text-white text-wrap w-xl">CloudConvert converts your image files online. Amongst many others, we support PNG, JPG, GIF, WEBP and HEIC. You can use the options to control image resolution, quality and file size.</p>
+        <p class="text-white text-wrap w-xl">CloudConvert converts your image files online. Amongst many others,
+            we support PNG, JPG, GIF, WEBP and HEIC. You can use the options to control image resolution, quality
+            and file size.</p>
     </div>
 
     <!--Form-->
@@ -15,12 +17,16 @@
         <label>
             <select class="px-6 mx-4 py-4 border border-white rounded-md" disabled>
                 <option class="text-black" value="{{ from }}">{{ from }}</option>
+                <option class="text-black" value="png">PNG</option>
+                <option class="text-black" value="jpg">JPG</option>
             </select>
         </label>
         to
         <label>
             <select class="px-6 mx-4 py-4 border border-white rounded-md">
                 <option class="text-black" value="{{ to }}">{{ to }}</option>
+                <option class="text-black" value="png">PNG</option>
+                <option class="text-black" value="jpg">JPG</option>
                 <option class="text-black" value="gif">GIF</option>
                 <option class="text-black" value="pdf">PDF</option>
             </select>
@@ -33,16 +39,18 @@
 
     <!--Select File Button-->
     <div class="px-[45%]">
-        <button class="text-white bg-[#b53836] text-xl px-12 py-4 border rounded-md my-4">
-            Select File
+        <button class="text-white bg-[#b53836] text-xl px-18 font-bold py-4 border rounded-md my-4">
+            Convert
         </button>
     </div>
 
     <!--Options Box-->
     <div class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2">
         <div class="flex justify-between bg-white px-4 py-6">
-            <h1 class="text-[#5a5a5a] text-[1.12rem] font-[700]"> <i class="fa fa-wrench mr-1 text-[#5a5a5a]"></i> OPTIONS</h1>
-            <i title=" Setting these options is optional. The default values are a good start for most cases." class="fa fa-question-circle float-right text-[#5a5a5a] pt-1"></i>
+            <h1 class="text-[#5a5a5a] text-[1.12rem] font-[700]"> <i class="fa fa-wrench mr-1 text-[#5a5a5a]"></i>
+                OPTIONS</h1>
+            <i title=" Setting these options is optional. The default values are a good start for most cases."
+               class="fa fa-question-circle float-right text-[#5a5a5a] pt-1"></i>
         </div>
 
         <hr class="text-[#f2f2f2]">
@@ -53,7 +61,8 @@
                 <h1 class="font-light pb-4">Width</h1>
                 <div class="px-[15%]">
                     <form>
-                        <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px] px-14">
+                        <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px]
+                         px-14">
                     </form>
                     <p class="text-[#a5a5a5] text-[12px]">Output width in pixels.</p>
                 </div>
@@ -62,7 +71,8 @@
                 <h1 class="font-light pb-4">Height</h1>
                 <div class="px-[15%]">
                     <form>
-                        <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px] px-14">
+                        <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px]
+                         px-14">
                     </form>
                     <p class="text-[#a5a5a5] text-[12px]">Output height in pixels.</p>
                 </div>
@@ -76,21 +86,27 @@
             <div class="flex py-4 justify-center text-start gap-19">
                 <h1 class="font-light text-center">Fit</h1>
                 <div>
-                    <select class="border border-[#dadada] text-left border border-[#dadada] rounded-sm py-[6px] w-73 text-start text-left items-start ">
+                    <select class="border border-[#dadada] text-left border border-[#dadada] rounded-sm py-[6px] w-73
+                     text-start text-left items-start ">
                         <option class="text-start text-left">max</option>
                         <option class=" text-start text-left">crop</option>
                         <option class=" text-start text-left">scale</option>
                     </select>
-                    <p class="text-[#a5a5a5] text-[12px] w-73">Sets the mode of resizing the image. "Max" resizes the image to fit within the width and height, but will not increase the size of the image if it is smaller than width or height. "Crop" resizes the image to fill the width and height dimensions and crops any excess image data. "Scale" enforces the image width and height by scaling.</p>
+                    <p class="text-[#a5a5a5] text-[12px] w-73">Sets the mode of resizing the image. "Max" resizes the
+                        image to fit within the width and height, but will not increase the size of the image if it is
+                        smaller than width or height. "Crop" resizes the image to fill the width and height dimensions
+                        and crops any excess image data. "Scale" enforces the image width and height by scaling.</p>
                 </div>
             </div>
             <div class="flex py-2 justify-center text-start gap-5">
                 <h1 class="font-light self-center pb-30">Strip</h1>
                 <div class="px-[15%]">
                     <form >
-                        <input type="radio" class="accent-[#b53836] border border-[#dadada] border border-[#dadada] rounded-sm py-[6px] px-14">&nbsp;Yes
+                        <input type="radio" class="accent-[#b53836] border border-[#dadada] border border-[#dadada]
+                         rounded-sm py-[6px] px-14">&nbsp;Yes
                         <div class="block"></div>
-                        <input type="radio" class="accent-[#b53836] border border-[#dadada] border border-[#dadada] rounded-sm py-[6px] px-14">&nbsp;No
+                        <input type="radio" class="accent-[#b53836] border border-[#dadada] border border-[#dadada]
+                         rounded-sm py-[6px] px-14">&nbsp;No
                     </form>
                     <p class="text-[#a5a5a5] text-[12px] w-70">Remove any metadata such as EXIF data.</p>
                 </div>
@@ -103,9 +119,11 @@
             <h1 class="font-light pb-4">Quality</h1>
             <div class="px-[6%]">
                 <form>
-                    <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px] px-14">
+                    <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px]
+                     px-14">
                 </form>
-                <p class="text-[#a5a5a5] text-[12px]">Zlib compression level (quality / 10) and filter-type (quality % 10).</p>
+                <p class="text-[#a5a5a5] text-[12px]">Zlib compression level (quality / 10) and filter-type
+                    (quality % 10).</p>
             </div>
         </div>
         
@@ -121,7 +139,8 @@
             </h1>
             <h1 class="text-[#b53836] font-[400]">WEBP Converter</h1>
         </div>
-        <p>WebP ("weppy") is a file format which stores images with both lossy and lossless compression. It was developed by Google, based on acquired technology of On2.</p>
+        <p>WebP ("weppy") is a file format which stores images with both lossy and lossless compression. It was
+            developed by Google, based on acquired technology of On2.</p>
     </div>
     <div class="bg-white px-6 pt-6 pb-20 w-140 border border-b-2 border-[#f2f2f2]">
         <div class="flex justify-between pb-4">
@@ -131,7 +150,10 @@
             </h1>
             <h1 class="text-[#b53836] font-[400]">WEBP Converter</h1>
         </div>
-        <p>PNG or Portable Network Graphic format is a graphic file format that uses lossless compression algorithm to store raster images. It uses 2 stage compression methods. It is frequently used as web site images rather than printing as it supports only the RGB color model. So CMYK color images cannot be saved as PNG image.</p>
+        <p>PNG or Portable Network Graphic format is a graphic file format that uses lossless compression algorithm
+            to store raster images. It uses 2 stage compression methods. It is frequently used as website images
+            rather than printing as it supports only the RGB color model. So CMYK color images cannot be saved as PNG
+            image.</p>
     </div>
     </div>
     

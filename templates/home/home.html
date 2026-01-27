@@ -32,9 +32,9 @@
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="pdf">PDF</option>
-                <option class="text-black" value="pdf">GIF</option>
+                <option class="text-black" value="gif">GIF</option>
                 <option class="text-black" value="jpg">JPG</option>
-                <option class="text-black" value="jpeg">JPG</option>
+                <option class="text-black" value="jpeg">JPEG</option>
             </select>
         </label>
     </div>
@@ -42,7 +42,7 @@
 
 
 <!--Select File Button-->
-<div class="px-[45%]">
+<div class="px-[40%] flex gap-2">
     <input type="file" id="fileUpload" class="hidden" name="file_picked" required>
     <label for="fileUpload" class="flex items-center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
     justify-self-center justify-arround
@@ -51,43 +51,25 @@
         <i class="fa-regular fa-file pl-10 pr-6"></i>
         Select File
     </label>
-</div>
-</form>
+    <button type="submit" id='button1' class="flex items-center gap-2 self-items-center text-white bg-[#b53836]
+    text-xl w-30 pl-6 justify-self-center border rounded-md my-4 cursor-pointer hover:bg-[#a0302e] transition">
+        Submit
+    </button>
 
-    {% if error == 'a' %}
-        <div  class="justify-center bg-green-800 text-white px-4 py-6 mx-[30%] border rounded-2xl">
-            <p id="success-message" class="justify-self-center font-sm text-lg">File successfully converted from PNG to
-                JPG
-            </p>
-        </div>
-    {% endif %}
-    {% if from and to %}
-    <div class="px-[45%]">
-        <button id='button1' class="flex items-center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
-        justify-self-center justify-arround
-        border rounded-md my-4
-        cursor-pointer hover:bg-[#a0302e] transition">
-            <a href="{% url 'convert' slug=from|add:'to'|add:to %}">
-            Convert
-        </a>
-        </button>
-    </div>
-        {% else %}
-        <div class="px-[45%]">
-        <button id='button1' class="pl-18 flex items-center gap-4  text-white bg-[#b53836] text-xl px-4 py-4 w-60
-        justify-self-center
-        border rounded-md my-4
-        cursor-pointer hover:bg-[#a0302e] transition self-items-center items-center content-center" onclick="postRequest
-        ()">
-            Detect File</button>
-    </div>
-    {% endif %}
+</div>
+
+
+</form>
 
 
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}
 
     <script>
+        $("#file").onchange(function () {
+            $("#form").submit();
+        });
+
     function postRequest() {
     let fromFile = document.getElementById('from_file').value;
     let toFile = document.getElementById('to_file').value;
@@ -105,14 +87,14 @@
             "X-CSRFToken": csrfToken,
         },
         body: formData
-    }).then(function(response) {
-        return response.json();
-      }).then(function(data) {
-        console.log(data);
-        console.log(data.data.from);
-        document.getElementById('from_file').value = data.data.from;
-        document.getElementById('to_file').value = data.data.to;
-      })}
-
+    })}
+        {#.then(function(response) {#}
+        {#return response.json();#}
+      {# }).then(function(data){#}
+        {#console.log(data);#}
+        {#console.log(data.data.from);#}
+        {#document.getElementById('from_file').value = data.data.from;#}
+        {#document.getElementById('to_file').value = data.data.to;#}
+      {# }).catch(error => error)}#}
     </script>
 {% endblock %}

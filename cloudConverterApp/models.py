@@ -11,4 +11,4 @@ class ConvertModel(models.Model):
         ordering = ['created_at']
 
     def  __str__(self):
-        return f'{self.from_format} to {self.to_format}'
+        return f'{self.converted}'

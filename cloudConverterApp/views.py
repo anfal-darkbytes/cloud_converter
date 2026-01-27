@@ -1,11 +1,10 @@
-from django.shortcuts import render
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.shortcuts import render, redirect
 from .forms import DataForm
 from .models import ConvertModel
 from .utils import detect_file_extension, convert_file
 import logging
-from django.http import JsonResponse
 import datetime
-import os
 
 logger = logging.getLogger('cloudConverterApp/views.py')
 converter = ConvertModel()
@@ -30,14 +29,12 @@ def home(request):
             converter.file_picked = file_picked
             converter.created_at = datetime.datetime.now()
 
-            file_name = os.path.basename(file_picked)
 
-            converter.converted = convert_file(file_picked, to_file, file_name)
+            output_image = convert_file(file_picked, to_file)
+            converter.converted = InMemoryUploadedFile(output_image, None, 'fool.'+ to_file,
+                                                       'image/'+to_file, output_image.tell, None)
+
             converter.save()
-            print(f"from file ext in db: {converter.from_format}")
-            print(f"to file ext in db: {converter.to_format}")
-            print(f"file in db: {converter.file_picked}")
-            print(f"created_at file ext in db: {converter.created_at}")
 
             res_data = {
                 'from': from_file,
@@ -46,21 +43,13 @@ def home(request):
 
             print(f'my data: {res_data}')
 
-            return JsonResponse(
-                data={
-                    'status': 200,
-                    'message': "Detected file",
-                    'data': res_data,
-                },
-                safe=False,
-                status=200
-            )
+            return redirect('convert', from_formate=from_file, to_formate=to_file)
 
     return render(request, 'home/home.html')
 
 
-def convert(request):
-    if request.GET:
-        pass
-
-    return render(request, 'converter/converter.html')
+def convert(request, from_formate, to_formate):
+    return render(request, 'converter/converter.html', {
+        'from': from_formate,
+        'to': to_formate,
+    })

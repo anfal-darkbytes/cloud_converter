@@ -1,7 +1,9 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('converter/<slug:slug>', views.convert, name='convert'),
-]
+    path('converter/<str:from_formate>-to-<str:to_formate>', views.convert, name='convert'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

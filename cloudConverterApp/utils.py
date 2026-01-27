@@ -1,6 +1,11 @@
+import io
+from io import BytesIO
+
 import magic
 import os
-from PIL import Image
+from PIL import Image, ImageOps
+from django.core.files.base import ContentFile
+
 
 def detect_file_extension(file):
     mime = magic.from_buffer(file.read(2048), mime=True)
@@ -11,28 +16,19 @@ def detect_file_extension(file):
         "image/jpeg": "jpg",
         "application/pdf": "pdf",
         "image/gif": "gif",
-        "application/zip": "zip",
     }
 
     return mapping.get(mime, os.path.splitext(file.name)[1].replace('.', ''))
 
-
 def convert_file(file, to_ext):
+    with Image.open(file) as im:
+        img_border = (0, 0, 0, 10)
+        im_with_border = ImageOps.expand(im, border=img_border, fill='white')
 
-    file_name = os.path.basename(file)
-    file_path = Image.open(file)
+        buffer = BytesIO()
+        im_with_border.save(fp=buffer, format=to_ext.upper())
+        buff_val = buffer.getvalue()
+    return ContentFile(buff_val)
 
-    if file_path.format != to_ext:
-
-        if to_ext=='pdf':
-
-            im = Image.open(os.path.abspath(file))
-            im.save(file_name + to_ext, 'PDF',resolution=100.0)
-
-        else:
-
-            im = Image.open(file)
-            rgb_im = im.convert('RGBA')
-            rgb_im.save(os.path.join(file_name,'.',to_ext))
-
-
+def get_filename(file):
+    return os.path.splitext(file.name)[0].replace('.', '')
