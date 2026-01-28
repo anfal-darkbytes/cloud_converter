@@ -12,6 +12,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,6 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudConverterApp',
+    'django_celery_beat',
+
 ]
 
 MIDDLEWARE = [
