@@ -4,52 +4,48 @@ from .forms import DataForm
 from .models import ConvertModel
 from .utils import detect_file_extension, convert_file
 import logging
-import datetime
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 logger = logging.getLogger('cloudConverterApp/views.py')
-converter = ConvertModel()
 
 def home(request):
+    print(f"request.method == {request.method == 'POST'}")
     if request.method == 'POST':
-        print(f'from image: {request.POST['from_file']}')
-        print(f'to image: {request.POST['to_file']}')
-        print(f'file image: {request.FILES['file_picked']}')
         data_form = DataForm(request.POST, request.FILES)
-
-        print(f'data form is valid: " {data_form.is_valid()}')
+        print(f'data_form.is_valid()= {data_form.is_valid()}')
         if data_form.is_valid():
-            to_file = data_form.cleaned_data['to_file']
             file_picked = data_form.cleaned_data['file_picked']
-
             from_file = detect_file_extension(file_picked)
-            print(f'from file detected extension: {from_file}')
 
-            converter.from_format = from_file
-            converter.to_format = to_file
-            converter.file_picked = file_picked
-            converter.created_at = datetime.datetime.now()
-
-
-            output_image = convert_file(file_picked, to_file)
-            converter.converted = InMemoryUploadedFile(output_image, None, 'fool.'+ to_file,
-                                                       'image/'+to_file, output_image.tell, None)
-
-            converter.save()
-
-            res_data = {
-                'from': from_file,
-                'to': to_file
-            }
-
-            print(f'my data: {res_data}')
-
-            return redirect('convert', from_formate=from_file, to_formate=to_file)
+            obj = ConvertModel.objects.create(
+                uploaded = file_picked,
+                from_format = from_file,
+                to_format = data_form.cleaned_data['to_file'],
+                created_at=timezone.now()
+            )
+            return redirect('convert', from_format=obj.from_format, to_format=obj.to_format, pk=obj.pk)
 
     return render(request, 'home/home.html')
 
 
-def convert(request, from_formate, to_formate):
-    return render(request, 'converter/converter.html', {
-        'from': from_formate,
-        'to': to_formate,
-    })
+def convert(request,from_format, to_format, pk):
+    obj = get_object_or_404(ConvertModel, pk=pk)
+    if request.method == 'POST':
+
+        uploaded_file=obj.uploaded
+        to_format=obj.to_format
+
+        output_file = convert_file(uploaded_file, to_format)
+
+        obj.converted = InMemoryUploadedFile(output_file, None, 'fool.' + to_format,
+                                                   'image/' + to_format, output_file.tell, None)
+        obj.save()
+
+        return render(request, 'converter/converter.html', {'obj':obj})
+    return render(request, 'converter/converter.html', {'obj':obj})
+
+
+#signal
+#crontab
+

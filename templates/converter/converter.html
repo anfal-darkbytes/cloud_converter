@@ -16,15 +16,14 @@
         convert
         <label>
             <select class="px-6 mx-4 py-4 border border-white rounded-md" disabled>
-                <option class="text-black" value="{{ from }}">{{ from }}</option>
-                <option class="text-black" value="png">PNG</option>
-                <option class="text-black" value="jpg">JPG</option>
+                <option class="text-black" value="{{ obj.from_format }}">{{ obj.from_format }}</option>
             </select>
         </label>
         to
         <label>
             <select class="px-6 mx-4 py-4 border border-white rounded-md">
-                <option class="text-black" value="{{ to }}">{{ to }}</option>
+                <option class="text-black font-bold" value="{{ obj.to_format }}" disabled selected hidden>
+                    {{ obj.to_format }}</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="jpg">JPG</option>
                 <option class="text-black" value="gif">GIF</option>
@@ -88,8 +87,8 @@
                 <div>
                     <select class="border border-[#dadada] text-left border border-[#dadada] rounded-sm py-[6px] w-73
                      text-start text-left items-start ">
-                        <option class="text-start text-left">max</option>
-                        <option class=" text-start text-left">crop</option>
+                        <option class="text-start text-left">fit</option>
+                        <option class=" text-start text-left">max</option>
                         <option class=" text-start text-left">scale</option>
                     </select>
                     <p class="text-[#a5a5a5] text-[12px] w-73">Sets the mode of resizing the image. "Max" resizes the
@@ -101,7 +100,7 @@
             <div class="flex py-2 justify-center text-start gap-5">
                 <h1 class="font-light self-center pb-30">Strip</h1>
                 <div class="px-[15%]">
-                    <form >
+                    <form>
                         <input type="radio" class="accent-[#b53836] border border-[#dadada] border border-[#dadada]
                          rounded-sm py-[6px] px-14">&nbsp;Yes
                         <div class="block"></div>

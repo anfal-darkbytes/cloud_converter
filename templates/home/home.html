@@ -55,7 +55,6 @@
     text-xl w-30 pl-6 justify-self-center border rounded-md my-4 cursor-pointer hover:bg-[#a0302e] transition">
         Submit
     </button>
-
 </div>
 
 
@@ -66,9 +65,6 @@
 {% include 'converter_details.html' %}
 
     <script>
-        $("#file").onchange(function () {
-            $("#form").submit();
-        });
 
     function postRequest() {
     let fromFile = document.getElementById('from_file').value;

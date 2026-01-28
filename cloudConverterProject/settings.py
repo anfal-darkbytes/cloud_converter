@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -74,6 +75,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CELERY_BEAT_SCHEDULE = {
+    'run-function-every-5-minutes': {
+        'task': 'cloudConverterApp.utils.del_old_conversions',
+        'schedule': 300.0,
+    },
+}
 
 LANGUAGE_CODE = 'en-us'
 
