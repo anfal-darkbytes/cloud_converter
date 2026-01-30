@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block cloudConverterBody %}
+    <div class="">
+
+    </div>
+<article class="container mx-auto ">
+            <!--Icon-->
+            <div class="items-center text-[4rem] mt-10 mx-36">
+               <img class=" object-cover h-96 w-full px-20" src="{{ blog_obj.image.url }}" alt="image not found">
+            </div>
+
+            <!--content-->
+            <div class='px-20 w-full overflow-hidden flex flex-wrap flex-col mx-36'>
+                <h1 class="font-bold text-[1.51rem] pb-4">{{ blog_obj.heading }}</h1>
+                <p class="">{{ blog_obj.description | safe }} </p>
+
+            </div>
+        </article>
+{% endblock %}

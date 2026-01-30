@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudConverterApp',
     'django_celery_beat',
+    'blog',
+    'tinymce',
 
 ]
 
@@ -107,3 +109,64 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+# Source - https://stackoverflow.com/a/74781169
+# Posted by Calpurnio Pisone, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-01-30, License - CC BY-SA 4.0
+
+TINYMCE_DEFAULT_CONFIG = {
+    "entity_encoding": "raw",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": 'print preview paste importcss searchreplace autolink autosave save code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons quickbars',
+    "toolbar": "fullscreen preview | undo redo | bold italic forecolor backcolor | formatselect | image link | "
+    "alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | fontsizeselect "
+    "emoticons | ",
+    'paste_text_sticky': True,
+    'paste_text_sticky_default': True,
+    'valid_styles': 'font-weight,font-style,text-decoration',
+    'fontsize_formats': "8pt 10pt 11pt 12pt 13pt 14pt 16pt 18pt 20pt 24pt 36pt",
+    'font_formats': "Andale Mono=andale mono,times;" +
+    "Arial=arial,helvetica,sans-serif;" +
+    "Arial Black=arial black,avant garde;" +
+    "Book Antiqua=book antiqua,palatino;" +
+    "Comic Sans MS=comic sans ms,sans-serif;" +
+    "Courier New=courier new,courier;" +
+    "Georgia=georgia,palatino;" +
+    "Helvetica=helvetica;" +
+    "Impact=impact,chicago;" +
+    "Symbol=symbol;" +
+    "Tahoma=tahoma,arial,helvetica,sans-serif;" +
+    "Terminal=terminal,monaco;" +
+    "Times New Roman=times new roman,times;" +
+    "Trebuchet MS=trebuchet ms,geneva;" +
+    "Verdana=verdana,geneva;" +
+    "Webdings=webdings;" +
+    "Wingdings=wingdings,zapf dingbats",
+    "custom_undo_redo_levels": 50,
+    "quickbars_insert_toolbar": False,
+    "file_picker_callback": """function (cb, value, meta) {
+        var input = document.createElement("input");
+        input.setAttribute("type", "file");
+        if (meta.filetype == "image") {
+            input.setAttribute("accept", "image/*");
+        }
+        if (meta.filetype == "media") {
+            input.setAttribute("accept", "video/*");
+        }
+
+        input.onchange = function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                var id = "blobid" + (new Date()).getTime();
+                var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                var base64 = reader.result.split(",")[1];
+                var blobInfo = blobCache.create(id, file, base64);
+                blobCache.add(blobInfo);
+                cb(blobInfo.blobUri(), { title: file.name });
+            };
+            reader.readAsDataURL(file);
+        };
+        input.click();
+    }""",
+    "content_style": "body { font-family:Roboto,Helvetica,Arial,sans-serif; font-size:14px }",
+}

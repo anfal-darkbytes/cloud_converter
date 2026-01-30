@@ -5,7 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cloudConverterApp.urls'))
+    path('', include('cloudConverterApp.urls')),
+    path('', include('blog.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

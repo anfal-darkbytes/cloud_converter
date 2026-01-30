@@ -10,10 +10,8 @@ from django.shortcuts import get_object_or_404
 logger = logging.getLogger('cloudConverterApp/views.py')
 
 def home(request):
-    print(f"request.method == {request.method == 'POST'}")
     if request.method == 'POST':
         data_form = DataForm(request.POST, request.FILES)
-        print(f'data_form.is_valid()= {data_form.is_valid()}')
         if data_form.is_valid():
             file_picked = data_form.cleaned_data['file_picked']
             from_file = detect_file_extension(file_picked)
@@ -24,6 +22,7 @@ def home(request):
                 to_format = data_form.cleaned_data['to_file'],
                 created_at=timezone.now()
             )
+
             return redirect('convert', from_format=obj.from_format, to_format=obj.to_format, pk=obj.pk)
 
     return render(request, 'home/home.html')
@@ -44,8 +43,4 @@ def convert(request,from_format, to_format, pk):
 
         return render(request, 'converter/converter.html', {'obj':obj})
     return render(request, 'converter/converter.html', {'obj':obj})
-
-
-#signal
-#crontab
 

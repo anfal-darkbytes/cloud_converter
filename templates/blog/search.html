@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block cloudConverterBody %}
+    <!--Bottom Body-->
+    <div class="flex justify-items-center container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
+        <h1 class="justify-items-center py-8 text-[32px] text-[#242424] underline font-bold container mx-auto
+            max-w-6xl px-4">Most Reads
+        </h1>
+    </div>
+    <hr class="text-[#f2f2f2]">
+    <div class="flex justify-items-center pb-12 container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
+        <div class="flex items-center justify-between flex-wrap gap-2 py-8">
+            {% for blog in filter_blog %}
+                 <a href="{% url 'blog_by_slug' slug=blog.slug %}">
+                    <div class="border border-white rounded-t-[12px] my-[10px] w-[350px] h-[350px] overflow-hidden
+                    text-ellipsis">
+                        <div class="flex items-center text-[4rem] h-45">
+                            <img class="object-fill" src="{{ blog.image.url }}" alt="image not found">
+                        </div>
+                        <!--content-->
+                        <div class="overflow-hidden text-ellipsis p-2">
+                            <h1 class="font-bold text-[1.51rem] pt-4 opacity-[0.8] overflow-x-hidden">
+                                {{ blog.heading | safe}}
+                            </h1>
+                            <p class=" opacity-[0.7] overflow-y-hidden text-ellipsis">
+                                {{ blog.description | safe }}
+                            </p>
+                        </div>
+                    </div>
+                 </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
