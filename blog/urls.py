@@ -4,7 +4,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('blogs-list/', views.blog, name='blog'),
+    path('blogs/', views.blog, name='blog'),
     path('blog/<slug:slug>', views.blog_by_id, name='blog_by_slug'),
     path('blog-search/', views.search_by_query, name='search_by_query')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

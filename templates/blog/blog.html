@@ -1,23 +1,32 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
     <!--Bottom Body-->
-    <div class="flex justify-items-center container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
-        <h1 class="justify-items-center py-8 text-[32px] text-[#242424] underline font-bold container mx-auto
-            max-w-6xl px-4">Most Reads
-        </h1>
-        <div class="flex place-content-center">
-            <form method="POST" class="place-content-center" id="my_form">
-                 {% csrf_token %}
-                <label for="search"></label><input type="text" id="search_query" name="search_query" class="self-items-center
-                border
-                border-[#242424] border-2 h-12 rounded-[8px] w-[250px] self-center px-4" required>
-            </form>
-            <button type="submit" id='search-button' form="my_form" class="flex items-center self-items-center text-white
-            bg-[#b53836] text-lg w-30  justify-self-center border rounded-md container mx-4 my-[30px] cursor-pointer
-                hover:bg-[#a0302e] place-content-center transition" onclick="postRequest()">
-                Search
-            </button>
+    <div class="flex justify-between container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
+        <div class="flex">
+             <h1 class="justify-items-center py-8 text-[32px] text-[#242424] underline font-bold container mx-auto
+            max-w-6xl px-4">Categories
+            </h1>
+            <label>
+                <select class="container my-8 border border-black h-12 rounded-[8px] w-[200px] px-4">
+                    <option>All</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat.name }}">{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
         </div>
+
+        <div class="flex place-content-center">
+            <form method="GET" action="{% url 'search_by_query' %}" class="flex place-content-center">
+                <input type="text" name="search_query" id="search_query" value="{{ query|default:'' }}"
+                class="border border-[#242424] border-2 h-12 rounded-[8px] w-[250px] px-4 self-center">
+                <button type="submit"
+                    class="flex items-center container my-8 text-white bg-[#b53836] text-lg px-6 py-2 ml-4 rounded-md
+                    cursor-pointer hover:bg-[#a0302e] transition"> Search
+                </button>
+            </form>
+        </div>
+
 
     </div>
     <hr class="text-[#f2f2f2]">
@@ -25,39 +34,28 @@
         <div class="flex items-center justify-between flex-wrap gap-2 py-8">
             {% for blog in blog_list %}
                  <a href="{% url 'blog_by_slug' slug=blog.slug %}">
-                    <div class="border border-white rounded-t-[12px] my-[10px] w-[350px] h-[350px] overflow-hidden
+                    <div class="border border-[#f2f2f2] rounded-t-[12px] my-[10px] w-[350px] h-[350px] overflow-hidden
                     text-ellipsis">
                         <div class="flex items-center text-[4rem] h-45">
                             <img class="object-fill" src="{{ blog.image.url }}" alt="image not found">
                         </div>
                         <!--content-->
-                        <div class="overflow-hidden text-ellipsis p-2">
-                            <h1 class="font-bold text-[1.51rem] pt-4 opacity-[0.8] overflow-x-hidden">
-                                {{ blog.heading | safe}}
+                        <div class="overflow-hidden text-ellipsis py-4">
+                            <h1 class="font-bold text-[1.21rem] pt-4 opacity-[0.8] overflow-x-hidden px-2">
+                                {{ blog.title | safe}}
                             </h1>
-                            <p class=" opacity-[0.7] overflow-y-hidden text-ellipsis">
+                            <p class=" opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
                                 {{ blog.description | safe }}
                             </p>
+                        </div>
+                        <div class="flex justify-between px-2 font-md text-[#a5a5a5]">
+                            <p class="text-[#b53836]">{{ blog.author }}</p>
+                            <p class="text-black opacity-[.7]">{{ blog.uploaded_date }}</p>
                         </div>
                     </div>
                  </a>
             {% endfor %}
         </div>
     </div>
-    <script>
-    function postRequest() {
-    let search_query = document.getElementById('search_query').value;
-    let csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    let formData = new FormData();
-    formData.append('search_query', search_query);
-
-    fetch("{% url 'search_by_query' %}", {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": csrfToken,
-        },
-        body: formData
-    })}
-    </script>
 {% endblock %}

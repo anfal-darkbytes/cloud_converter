@@ -44,3 +44,8 @@ def convert(request,from_format, to_format, pk):
         return render(request, 'converter/converter.html', {'obj':obj})
     return render(request, 'converter/converter.html', {'obj':obj})
 
+def privacy_policy(request):
+    return render(request, 'privacy_policy/privacy_policy.html')
+
+def terms_condition(request):
+    return render(request, 'terms_condition/terms_condition.html')
