@@ -6,7 +6,6 @@ from django.db.models import Q
 
 
 def blog(request):
-
     categories = CategoryModel.objects.all()
 
     if request.method == 'GET':
@@ -35,7 +34,6 @@ def blog_by_id(request, slug):
 
 
 def search_by_query(request):
-
     search_query = request.GET.get('q', '')
     filter_blog = BlogModel.objects.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query) |
     Q(author__icontains=search_query) | Q(author__icontains=search_query))

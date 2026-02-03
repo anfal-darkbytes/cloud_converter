@@ -15,7 +15,7 @@ class BlogModel(models.Model):
     image = models.ImageField(upload_to='blog/')
     title = models.CharField(max_length=100,unique=True)
     description = models.CharField(max_length=50, default='')
-    body = HTMLField()
+    body = models.TextField()
     hash_tag = models.CharField(max_length=50)
     author = models.CharField(max_length=100, default='DarkBytes')
     uploaded_date = models.DateTimeField(default=timezone.now)

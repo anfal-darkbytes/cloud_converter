@@ -11,7 +11,7 @@
                 <label>
                     <select name="category" onchange="this.form.submit()" class="container my-8 mx-2 border border-black
                     h-[35px] rounded-[8px] w-[200px] px-2 text-[14px]">
-                        <option value="" disabled selected hidden class="px=2">Select Category</option>
+                        <option value="" disabled selected hidden class="px=2">All</option>
                         {% for cat in categories %}
                             <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected
                             {% endif %}>
@@ -22,7 +22,6 @@
                 </label>
             </form>
         </div>
-
         <div class="flex place-content-center">
             <form method="GET" action="{% url 'search_by_query' %}" class="flex place-content-center">
                 <input type="text" name="q" id="search_query" value="{{ query|default:'' }}"
