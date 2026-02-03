@@ -13,15 +13,14 @@
                     h-[35px] rounded-[8px] w-[200px] px-2 text-[14px]">
                         <option value="" disabled selected hidden class="px=2">Select Category</option>
                         {% for cat in categories %}
-                            <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected{% endif %}>
+                            <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected
+                            {% endif %}>
                                 {{ cat.name }}
                             </option>
                         {% endfor %}
                     </select>
                 </label>
             </form>
-
-
         </div>
 
         <div class="flex place-content-center">

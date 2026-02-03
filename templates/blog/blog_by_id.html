@@ -3,19 +3,23 @@
     <div class="">
     </div>
     <article class="container mx-auto ">
-        <!--Icon-->
         <div class="items-center text-[4rem] mt-10 mx-36">
             <img class=" object-cover h-96 w-full px-20" src="{{ blog_obj.image.url }}" alt="image not found">
         </div>
 
 
-        <!--content-->
-        <div class='px-20 w-full overflow-hidden flex flex-wrap flex-col mx-36'>
-           <h1 class="font-bold text-[1.51rem] pb-4">{{ blog_obj.title }}</h1>
-            <p class="items-center text-[12px]">
+        <div class='px-20 overflow-hidden flex flex-wrap flex-col mx-36'>
+            <h1 class="font-bold text-[1.51rem] py-2">{{ blog_obj.title }}</h1>
+            <div class="flex justify-between italic pb-4 text-[14px]">
+                <h1 class="font-md text-[#b53836]">By {{ blog_obj.author }}</h1>
+                <p>{{ blog_obj.uploaded_date }}</p>
+            </div>
+            <p class="items-center text-[12px] pb-4">
             {{ blog_obj.description }}
-        </p>
-           <p class="">{{ blog_obj.body | safe }} </p>
+            </p>
+            <div class="flex justify-between pb-4 text-[14px]">
+                <p>{{ blog_obj.body | safe }}</p>
+            </div>
         </div>
     </article>
 {% endblock %}
