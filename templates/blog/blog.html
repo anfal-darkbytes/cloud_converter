@@ -1,36 +1,50 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
+
     <!--Bottom Body-->
     <div class="flex justify-between container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
         <div class="flex">
-             <h1 class="justify-items-center py-8 text-[32px] text-[#242424] underline font-bold container mx-auto
+             <h1 class="justify-items-center py-8 text-[22px] text-[#242424] font-bold container mx-auto
             max-w-6xl px-4">Categories
             </h1>
-            <label>
-                <select class="container my-8 border border-black h-12 rounded-[8px] w-[200px] px-4">
-                    <option>All</option>
-                    {% for cat in categories %}
-                        <option value="{{ cat.name }}">{{ cat.name }}</option>
-                    {% endfor %}
-                </select>
-            </label>
+            <form method="GET" action="{% url 'blog' %}" class="flex place-content-center">
+                <label>
+                    <select name="category" onchange="this.form.submit()" class="container my-8 mx-2 border border-black
+                    h-[35px] rounded-[8px] w-[200px] px-2 text-[14px]">
+                        <option value="" disabled selected hidden class="px=2">Select Category</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected{% endif %}>
+                                {{ cat.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </form>
+
+
         </div>
 
         <div class="flex place-content-center">
             <form method="GET" action="{% url 'search_by_query' %}" class="flex place-content-center">
-                <input type="text" name="search_query" id="search_query" value="{{ query|default:'' }}"
-                class="border border-[#242424] border-2 h-12 rounded-[8px] w-[250px] px-4 self-center">
+                <input type="text" name="q" id="search_query" value="{{ query|default:'' }}"
+                class="border border-[#242424] border-1 h-[35px] rounded-[8px] w-[250px] px-4 self-center">
                 <button type="submit"
-                    class="flex items-center container my-8 text-white bg-[#b53836] text-lg px-6 py-2 ml-4 rounded-md
-                    cursor-pointer hover:bg-[#a0302e] transition"> Search
+                    class="flex self-center justify-content-center container my-8 text-white bg-[#b53836] text-[14px]
+                     px-[10%] py-2 ml-4
+                    rounded-md cursor-pointer hover:bg-[#a0302e] transition"> Search
                 </button>
             </form>
         </div>
-
-
     </div>
     <hr class="text-[#f2f2f2]">
-    <div class="flex justify-items-center pb-12 container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
+
+    {% if not blog_list %}
+        <div class="container my-[125px] mx-auto max-w-6xl px-4 overflow-x-hidden  justify-items-center ">
+            <img src="https://www.shutterstock.com/image-vector/no-item-found-vector-solid-260nw-2083860241.jpg"
+                 alt="image not found">
+        </div>
+    {% endif %}
+    <div class="flex justify- pb-12 container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden">
         <div class="flex items-center justify-between flex-wrap gap-2 py-8">
             {% for blog in blog_list %}
                  <a href="{% url 'blog_by_slug' slug=blog.slug %}">
@@ -57,5 +71,42 @@
             {% endfor %}
         </div>
     </div>
+    {% if blog_list %}
+        <div class="flex items-center py-8 px-[10%] container mx-auto max-w-6xl overflow-x-hidden gap-4 self-items-center
+         justify-center">
+            <div class="py-[15px]">
+                {% if blog_list.has_previous %}
+                    <a href="?page=1" class="bg-[#b53836] px-[10px] py-[10px] text-white font-md text-sm border
+                    rounded-[8px]">First</a>
+                    <a href="?page={{ blog_list.previous_page_number }}" class="bg-[#b53836] px-[10px] py-[10px]
+                    text-white font-md text-sm border rounded-[8px]">Previous</a>
+                {% else %}
+                    <a href="" class="bg-[#b53836] px-[10px] py-[10px] text-white font-md text-sm opacity-[.3] border
+                    border-white rounded-[8px]">First</a>
+                    <a href="" class="bg-[#b53836] px-[10px] py-[10px] opacity-[.3]
+                    text-white font-md text-sm border rounded-[8px]">Previous</a>
+                {% endif %}
+            </div>
+
+            <div class="py-[15px] font-bold opacity-[.7]">
+                Page {{ blog_list.number }} of {{ blog_list.paginator.num_pages }}.
+            </div>
+
+            <div class="py-[15px]">
+                {% if blog_list.has_next %}
+                    <a href="?page={{ blog_list.next_page_number }}" class="bg-[#b53836] px-[10px] py-[10px] text-white
+                        font-md text-sm border rounded-[8px]">Next</a>
+                    <a href="?page={{ blog_list.paginator.num_pages }}" class="bg-[#b53836] px-[10px] py-[10px]
+                        text-white font-md text-sm border rounded-[8px]">Last</a>
+                {% else %}
+                    <a href="" class="bg-[#b53836] px-[10px] py-[10px] text-white
+                         font-md text-sm opacity-[.3] border rounded-[8px]">Next</a>
+                    <a href="" class="bg-[#b53836] px-[10px] py-[10px]
+                        text-white font-md text-sm opacity-[.3] border border-white rounded-[8px]">Last</a>
+                {% endif %}
+            </div>
+
+        </div>
+    {% endif %}
 
 {% endblock %}

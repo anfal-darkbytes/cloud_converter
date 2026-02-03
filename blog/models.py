@@ -14,7 +14,7 @@ class BlogModel(models.Model):
     category = models.ForeignKey(CategoryModel, on_delete=models.CASCADE, related_name='Category')
     image = models.ImageField(upload_to='blog/')
     title = models.CharField(max_length=100,unique=True)
-    description = models.CharField(max_length=100, default='')
+    description = models.CharField(max_length=50, default='')
     body = HTMLField()
     hash_tag = models.CharField(max_length=50)
     author = models.CharField(max_length=100, default='DarkBytes')

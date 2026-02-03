@@ -1,6 +1,10 @@
 
 import os
 from pathlib import Path
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,6 +21,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -172,3 +177,4 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 DATA_UPLOAD_MAX_MEMORY_SIZE= 26214400
+
