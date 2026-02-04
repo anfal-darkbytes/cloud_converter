@@ -2,16 +2,19 @@
 {% block cloudConverterBody %}
 
     <!--Bottom Body-->
-    <div class="flex justify-between container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
+    <div class="flex justify-between container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden">
         <div class="flex">
              <h1 class="justify-items-center py-8 text-[22px] text-[#242424] font-bold container mx-auto
             max-w-6xl px-4">Categories
             </h1>
             <form method="GET" action="{% url 'blog' %}" class="flex place-content-center">
                 <label>
-                    <select name="category" onchange="this.form.submit()" class="container my-8 mx-2 border border-black
+                    <select name="category" onchange="this.form.submit()" onscroll="catPagination()" class="container
+                    my-8 mx-2
+                    border
+                    border-black
                     h-[35px] rounded-[8px] w-[200px] px-2 text-[14px]">
-                        <option value="" disabled selected hidden class="px=2">All</option>
+                        <option value="" selected class="px=2">All</option>
                         {% for cat in categories %}
                             <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected
                             {% endif %}>
@@ -106,5 +109,11 @@
 
         </div>
     {% endif %}
+
+    <script>
+        function catPagination(){
+            fetch
+        }
+    </script>
 
 {% endblock %}

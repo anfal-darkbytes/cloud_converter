@@ -20,6 +20,9 @@
             <div class="flex justify-start pb-8 text-[14px]">
                 <p>{{ blog_obj.body | safe }}</p>
             </div>
+            <div class="flex justify-start pb-8 text-[14px] font-semibold">
+                <p>#{{ blog_obj.hash_tag | safe }}</p>
+            </div>
         </div>
     </article>
 {% endblock %}

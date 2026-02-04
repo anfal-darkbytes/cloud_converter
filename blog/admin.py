@@ -3,7 +3,6 @@ from django.db import models
 from .models import BlogModel, CategoryModel
 from unfold.admin import ModelAdmin
 from tinymce.widgets import TinyMCE
-from tinymce.models import HTMLField
 
 @admin.register(CategoryModel)
 class CategoryAdmin(ModelAdmin):

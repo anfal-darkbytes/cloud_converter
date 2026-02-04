@@ -175,7 +175,9 @@ TINYMCE_DEFAULT_CONFIG = {
         input.click();
     }""",
     "content_style": "body { font-family:Roboto,Helvetica,Arial,sans-serif; font-size:14px }",
+
 }
+
 
 DATA_UPLOAD_MAX_MEMORY_SIZE= 26214400
 
