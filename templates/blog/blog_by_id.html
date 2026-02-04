@@ -6,8 +6,6 @@
         <div class="items-center text-[4rem] mt-10 mx-36">
             <img class=" object-cover h-96 w-full px-20" src="{{ blog_obj.image.url }}" alt="image not found">
         </div>
-
-
         <div class='px-20 overflow-hidden flex flex-wrap flex-col mx-36'>
             <h1 class="font-bold text-[1.51rem] py-2">{{ blog_obj.title }}</h1>
             <div class="flex justify-between italic pb-4 text-[14px]">
@@ -17,7 +15,7 @@
             <p class="items-center text-[12px] pb-4">
             {{ blog_obj.description }}
             </p>
-            <div class="flex justify-start pb-8 text-[14px]">
+            <div class="flex justify-start pb-8 text-[14px] prose ">
                 <p>{{ blog_obj.body | safe }}</p>
             </div>
             <div class="flex justify-start pb-8 text-[14px] font-semibold">
