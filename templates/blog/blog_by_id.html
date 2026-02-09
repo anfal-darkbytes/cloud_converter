@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
+<style>
+    #body ul li {list-style-type: disc;}
+</style>
     <div class="">
     </div>
     <article class="container mx-auto ">
@@ -9,13 +12,13 @@
         <div class='px-20 overflow-hidden flex flex-wrap flex-col mx-36'>
             <h1 class="font-bold text-[1.51rem] py-2">{{ blog_obj.title }}</h1>
             <div class="flex justify-between italic pb-4 text-[14px]">
-                <h1 class="font-md text-[#b53836]">By {{ blog_obj.author }}</h1>
+                <h1 class="font-md text-[#A92655]">By {{ blog_obj.author }}</h1>
                 <p>{{ blog_obj.uploaded_date }}</p>
             </div>
             <p class="items-center text-[12px] pb-4">
             {{ blog_obj.description }}
             </p>
-            <div class="flex justify-start pb-8 text-[14px] prose ">
+            <div id='body' class="flex justify-start pl-4 pb-8 text-[14px] " style="list-style-type: disc;">
                 <p>{{ blog_obj.body | safe }}</p>
             </div>
             <div class="flex justify-start pb-8 text-[14px] font-semibold">

@@ -5,8 +5,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 
-def blog(request, offset=0, limit=3):
-    categories = CategoryModel.objects.all()[offset:limit]
+def blog(request):
+    categories = CategoryModel.objects.all()
     if request.method == 'GET':
 
         category_query = request.GET.get('category', '')
