@@ -15,7 +15,8 @@
     <div class="flex self-center text-white items-center px-20">
         convert
         <label>
-            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md text-[14px]" name="from_file"
+            <select class="px-6 mx-4 py-4 border border-2 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none"
+                    name="from_file"
                     id="from_file" required>
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
@@ -27,7 +28,8 @@
         </label>
         to
         <label>
-            <select class="px-6 mx-4 py-4 border border-[#f2f2f2] rounded-md text-[14px]" name="to_file" id="to_file" required>
+            <select class="px-6 mx-4 py-4 border border-2 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none" name="to_file"
+                    id="to_file" required>
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="pdf">PDF</option>
@@ -45,13 +47,13 @@
     <input type="file" id="fileUpload" class="hidden" name="file_picked" required>
     <label for="fileUpload" class="flex items-center gap-4  text-[#A92655] border border-[#A92655] text-xl px-4 py-4 w-60
     justify-self-center justify-arround
-    border rounded-md my-4
+    border rounded-md my-4 border-2
     cursor-pointer hover:bg-[#A92655] hover:text-white transition">
         <i class="fa-regular fa-file pl-10 pr-6"></i>
         Select File
     </label>
     <button type="submit" id='button1'
-            class="flex items-center gap-2 self-items-center text-[#A92655] border border-[#A92655]
+            class="flex items-center gap-2 self-items-center text-[#A92655] border border-[#A92655] border-2
     text-xl w-30 pl-6 justify-self-center border rounded-md my-4 cursor-pointer hover:bg-[#A92655] hover:text-white transition">
         Submit
     </button>

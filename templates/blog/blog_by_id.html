@@ -5,7 +5,7 @@
 </style>
     <div class="">
     </div>
-    <article class="container mx-auto ">
+    <article class="container mx-auto">
         <div class="items-center text-[4rem] mt-10 mx-36">
             <img class=" object-cover h-96 w-full px-20" src="{{ blog_obj.image.url }}" alt="image not found">
         </div>
@@ -18,8 +18,8 @@
             <p class="items-center text-[12px] pb-4">
             {{ blog_obj.description }}
             </p>
-            <div id='body' class="flex justify-start pl-4 pb-8 text-[14px] " style="list-style-type: disc;">
-                <p>{{ blog_obj.body | safe }}</p>
+            <div id='body' class="flex justify-start pb-8 text-[14px]">
+                <p class="justify-start">{{ blog_obj.body | safe }}</p>
             </div>
             <div class="flex justify-start pb-8 text-[14px] font-semibold">
                 <p>#{{ blog_obj.hash_tag | safe }}</p>

@@ -7,6 +7,9 @@ from datetime import timedelta
 from django.utils import timezone
 from .models import ConvertModel
 from celery import shared_task
+from rembg import remove
+import glob
+from multiprocessing import Pool
 
 def detect_file_extension(file):
     mime = magic.from_buffer(file.read(2048), mime=True)
@@ -20,7 +23,7 @@ def detect_file_extension(file):
 
     return mapping.get(mime, os.path.splitext(file.name)[1].replace('.', ''))
 
-def convert_file(file, to_ext, width=800, height=600, quality=90, strip=True, fit='fit'):
+def convert_file(file, to_ext, width=800, height=600, quality=90, strip=True, fit='fit', remove_bg=False):
     with Image.open(file) as im:
         im.resize((width, height), Image.Resampling.LANCZOS)
         if fit == 'fit':
@@ -29,6 +32,9 @@ def convert_file(file, to_ext, width=800, height=600, quality=90, strip=True, fi
             im.thumbnail((width, height), Image.Resampling.LANCZOS)
         else:
             im.resize((width,height), Image.Resampling.LANCZOS)
+
+        if remove_bg:
+            im = remove(im)
 
         buffer = BytesIO()
         im.save(fp=buffer, format=to_ext.upper(), quality=quality, optimize=strip)

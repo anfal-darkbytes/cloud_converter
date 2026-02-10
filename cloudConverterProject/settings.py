@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'blog',
     'tinymce',
+    'accounts',
+    'rest_framework',
 
 ]
 
@@ -180,4 +182,11 @@ TINYMCE_DEFAULT_CONFIG = {
 
 
 DATA_UPLOAD_MAX_MEMORY_SIZE= 26214400
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
 

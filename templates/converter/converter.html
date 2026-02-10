@@ -21,7 +21,7 @@
         </label>
         to
         <label>
-            <select class="px-6 mx-4 py-4 border border-white rounded-md">
+            <select class="px-6 mx-4 py-4 border border-white rounded-md focus:outline-none">
                 <option class="text-black font-bold" value="{{ obj.to_format }}" disabled selected hidden>
                     {{ obj.to_format }}</option>
                 <option class="text-black" value="png">PNG</option>
@@ -98,8 +98,9 @@
                         and crops any excess image data. "Scale" enforces the image width and height by scaling.</p>
                 </div>
             </div>
-            <div class="flex py-2 justify-center text-start gap-5">
-                <h1 class="font-light self-center pb-30">Strip</h1>
+            <div>
+                <div class="flex py-2 justify-center text-start gap-5">
+                <h1 class="font-light self-center pb-10">Strip</h1>
                 <div class="px-[15%]">
                     <form>
                         <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
@@ -110,6 +111,20 @@
                     </form>
                     <p class="text-[#a5a5a5] text-[12px] w-70">Remove any metadata such as EXIF data.</p>
                 </div>
+            </div>
+                <div class="flex py-2 justify-center text-start gap-5">
+                <h1 class="font-light self-center pb-10">Background</h1>
+                <div class="px-[15%]">
+                    <form>
+                        <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
+                         rounded-sm py-[6px] px-14">&nbsp;Yes
+                        <div class="block"></div>
+                        <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
+                         rounded-sm py-[6px] px-14">&nbsp;No
+                    </form>
+                    <p class="text-[#a5a5a5] text-[12px] w-70">Remove the background.</p>
+                </div>
+            </div>
             </div>
         </div>
         <hr class="text-[#f2f2f2]">

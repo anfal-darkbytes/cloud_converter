@@ -7,7 +7,7 @@ import logging
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 
-logger = logging.getLogger('cloudConverterApp/views.py')
+logger = logging.getLogger('cloudConverterApp/web_views.py')
 
 def home(request):
     if request.method == 'POST':
@@ -18,8 +18,8 @@ def home(request):
 
             obj = ConvertModel.objects.create(
                 uploaded = file_picked,
-                from_format = from_file,
-                to_format = data_form.cleaned_data['to_file'],
+                from_format = from_file.upper(),
+                to_format = data_form.cleaned_data['to_file'].upper(),
                 created_at=timezone.now()
             )
 

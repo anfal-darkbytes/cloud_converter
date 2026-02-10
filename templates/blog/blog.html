@@ -2,22 +2,27 @@
 {% block cloudConverterBody %}
 
     <!--Bottom Body-->
+<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65">
+    <div class="justify-between container mx-auto max-w-6xl px-6 py-2 overflow-x-hidden">
+        <h1 class="text-white font-bold text-[22px] pb-2">Blog</h1>
+        <p class="text-white text-wrap w-xl">Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+            printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+            five centuries.</p>
+    </div>
     <div class="flex justify-between container mx-auto gap-15 max-w-6xl px-6 overflow-x-hidden">
         <div class="flex">
-             <h1 class="justify-items-center py-8 text-[22px] text-[#A92655] font-bold
+             <h1 class="justify-items-center py-8 text-[22px] text-white font-bold
             max-w-6xl ">Categories
             </h1>
             <form method="GET" action="{% url 'blog' %}" class="flex place-content-center">
                 <label>
                     <select name="category" onchange="this.form.submit()" onscroll="catPagination()" class="container
-                    my-8 mx-4
-                    border
-                    border-black
-                    h-[35px] rounded-[8px] w-[200px] px-4 text-[14px]">
-                        <option value="" selected class="px=2">All</option>
+                    my-8 mx-4 border border-white border-2 text-white h-[35px] rounded-[8px] w-[200px] px-4 text-[14px]">
+                        <option value="" selected class="px-2 bg-[#FD8D67] hover:bg-[#A92655]">All</option>
                         {% for cat in categories %}
                             <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected
-                            {% endif %}>
+                            {% endif %} class="px-2 bg-[#FD8D67] hover:bg-[#A92655]">
                                 {{ cat.name }}
                             </option>
                         {% endfor %}
@@ -28,15 +33,17 @@
         <div class="flex place-content-center">
             <form method="GET" action="{% url 'search_by_query' %}" class="flex place-content-center gap-4">
                 <input type="text" name="q" id="search_query" value="{{ query|default:'' }}"
-                class="border border-[#A92655] border-1 h-[35px] rounded-[8px] w-[250px] px-4 self-center" required>
+                class="border border-white border-2 h-[35px] rounded-[8px] w-[250px] px-4 py-4 self-center
+                focus:outline-none caret-white" required>
                 <button type="submit"
-                    class="flex self-items-center justify-content-center container my-8 text-white bg-[#FD8D67]
-                     text-[14px] px-[5%] py-2 rounded-md cursor-pointer hover:bg-[#A92655] hover:text-white
-                     transition"> Search
+                    class="flex self-center justify-content-center container my-8 text-white border border-white border-2
+                     text-[14px] px-[5%] py-[5px] rounded-md cursor-pointer"> Search
                 </button>
             </form>
         </div>
     </div>
+</div>
+
     <hr class="text-[#f2f2f2] container">
 
     {% if not blog_list %}
@@ -56,7 +63,7 @@
                         </div>
                         <!--content-->
                         <div class="overflow-hidden text-ellipsis py-4">
-                            <h1 class="font-bold text-[1.21rem] pt-4 overflow-x-hidden px-2 text-[#A92655]">
+                            <h1 class="font-bold text-[1.21rem] pt-4 overflow-x-hidden px-2 text-black opacity-[.8]">
                                 {{ blog.title | safe}}
                             </h1>
                             <p class=" opacity-[0.7] overflow-y-hidden text-ellipsis px-2">

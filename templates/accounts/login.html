@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<!--    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>CloudConverter</title>
+</head>
+<body class="bg-gradient-to-r from-[#A92655] to-[#FD8D67]">
+    <div class=" container mx-auto h-[700px] w-[400px] border border-[#f2f2f2] rounded-[8px] my-[8%] bg-white">
+        <div class="justify-items-center">
+            <h1 class="py-8 font-bold text-[28px] opacity-[.8]">Login</h1>
+        </div>
+        <div class="px-8">
+            <form id="login-form">
+                <label class="text-[12px] py-4">Username</label>
+                <br>
+                <input type="text" id="username" class="container my-2 py-2 px-4 border-b-2 border-[#FD8D67]" required>
+                <br>
+                <label class="text-[12px] py-4">Password</label>
+                <br>
+                <input type="password" id="password" class="container my-2 py-2 px-4 bg-white border-b-2 border-[#FD8D67]"
+                       required><br>
+            </form>
+        </div>
+        <div class="px-8 justify-items-end">
+            <p class=" text-[12px]">Forgot password?</p>
+        </div>
+        <div class="container mx-auto px-[28%] py-8">
+            <button form="login-form" type='submit' class="container mx-auto
+                bg-[#A92655] rounded-[25px] h-[50px] w-[200px] text-white text-[14px]">LOGIN
+            </button>
+        </div>
+    </div>
+</body>
+</html>
