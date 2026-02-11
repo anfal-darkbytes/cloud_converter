@@ -2,7 +2,7 @@
 {% block cloudConverterBody %}
 <form method="POST" enctype="multipart/form-data">
 
- {% csrf_token %}
+{% csrf_token %}
 <!---Main Body-->
 <div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65 justify-between flex px-100 items-center">
     <!--Details-->
@@ -41,32 +41,28 @@
     </div>
 </div>
 
-
-<!--Select File Button-->
+<!--Select File & Submit Button-->
 <div class="px-[40%] flex gap-2">
     <input type="file" id="fileUpload" class="hidden" name="file_picked" required multiple>
-    <label for="fileUpload" class="flex items-center gap-4  text-[#A92655] border border-[#A92655] text-xl px-4 py-4 w-60
-    justify-self-center justify-arround
-    border rounded-md my-4 border-2
-    cursor-pointer hover:bg-[#A92655] hover:text-white transition">
+    <label for="fileUpload" class="flex items-center gap-4  text-[#A92655] border border-[#A92655] text-xl px-4 py-4
+    w-60 justify-self-center justify-arround border rounded-md my-4 border-2 cursor-pointer hover:bg-[#A92655]
+    hover:text-white transition">
         <i class="fa-regular fa-file pl-10 pr-6"></i>
         Select File
     </label>
     <button type="submit" id='button1'
             class="flex items-center gap-2 self-items-center text-[#A92655] border border-[#A92655] border-2
-    text-xl w-30 pl-6 justify-self-center border rounded-md my-4 cursor-pointer hover:bg-[#A92655] hover:text-white transition">
+    text-xl w-30 pl-6 justify-self-center border rounded-md my-4 cursor-pointer hover:bg-[#A92655] hover:text-white
+    transition">
         Submit
     </button>
 </div>
-
-
 </form>
-
 
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}
 
-    <script>
+<script>
     function postRequest() {
     let fromFile = document.getElementById('from_file').value;
     let toFile = document.getElementById('to_file').value;
@@ -93,5 +89,5 @@
         {#document.getElementById('from_file').value = data.data.from;#}
         {#document.getElementById('to_file').value = data.data.to;#}
       {# }).catch(error => error)}#}
-    </script>
+</script>
 {% endblock %}

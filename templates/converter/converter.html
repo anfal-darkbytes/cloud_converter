@@ -16,14 +16,20 @@
         convert
         <label>
             <select class="px-6 mx-4 py-4 border border-white rounded-md" disabled>
-                <option class="text-black" value="{{ obj.from_format }}">{{ obj.from_format }}</option>
+                {% if '-' in "{{ from_format }}" %}
+                    <option class="text-black" value="---">---</option>
+                {% else %}
+                   <option class="text-black" value="{{ from_format }}">{{ from_format }}</option>
+                {% endif %}
+
+
             </select>
         </label>
         to
         <label>
             <select class="px-6 mx-4 py-4 border border-white rounded-md focus:outline-none">
-                <option class="text-black font-bold" value="{{ obj.to_format }}" disabled selected hidden>
-                    {{ obj.to_format }}</option>
+                <option class="text-black font-bold" value="{{ to_format }}" disabled selected hidden>
+                    {{ to_format }}</option>
                 <option class="text-black" value="png">PNG</option>
                 <option class="text-black" value="jpg">JPG</option>
                 <option class="text-black" value="gif">GIF</option>

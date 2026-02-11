@@ -117,9 +117,6 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
-# Source - https://stackoverflow.com/a/74781169
-# Posted by Calpurnio Pisone, modified by community. See post 'Timeline' for change history
-# Retrieved 2026-01-30, License - CC BY-SA 4.0
 
 TINYMCE_DEFAULT_CONFIG = {
     "entity_encoding": "raw",

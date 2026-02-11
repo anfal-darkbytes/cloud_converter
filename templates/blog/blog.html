@@ -53,7 +53,7 @@
         </div>
     {% endif %}
     <div class="flex justify- pb-12 container mx-auto  gap-15 max-w-6xl px-6 overflow-x-hidden">
-        <div class="flex items-center justify-between flex-wrap gap-2 py-8">
+        <div class="flex items-center justify-between flex-wrap gap-4 py-8">
             {% for blog in blog_list %}
                  <a href="{% url 'blog_by_slug' slug=blog.slug %}">
                     <div class="border border-[#f2f2f2] rounded-t-[12px] my-[10px] w-[350px] h-[350px] overflow-hidden

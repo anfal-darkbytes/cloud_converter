@@ -1,5 +1,4 @@
 from io import BytesIO
-import magic
 import os
 from PIL import Image, ImageOps
 from django.core.files.base import ContentFile
@@ -10,18 +9,6 @@ from celery import shared_task
 from rembg import remove
 import glob
 from multiprocessing import Pool
-
-def detect_file_extension(file):
-    mime = magic.from_buffer(file.read(2048), mime=True)
-    file.seek(0)
-    mapping = {
-        "image/png": "png",
-        "image/jpeg": "jpg",
-        "application/pdf": "pdf",
-        "image/gif": "gif",
-    }
-
-    return mapping.get(mime, os.path.splitext(file.name)[1].replace('.', ''))
 
 def convert_file(file, to_ext, width=800, height=600, quality=90, strip=True, fit='fit', remove_bg=False):
     with Image.open(file) as im:
@@ -41,8 +28,14 @@ def convert_file(file, to_ext, width=800, height=600, quality=90, strip=True, fi
         buff_val = buffer.getvalue()
     return ContentFile(buff_val)
 
+
 def get_filename(file):
     return os.path.splitext(file.name)[0].replace('.', '')
+
+def get_extension(file):
+    filename = file.name if hasattr(file, 'name') else str(file)
+    _, file_extension = os.path.splitext(filename)
+    return file_extension.replace('.', '')
 
 @shared_task
 def del_old_conversions():
