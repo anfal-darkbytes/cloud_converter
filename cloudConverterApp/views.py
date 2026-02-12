@@ -1,5 +1,4 @@
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import DataForm
 from django.db import transaction
@@ -14,10 +13,12 @@ logger = logging.getLogger('cloudConverterApp/web_views.py')
 
 def home(request):
     ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+
     if ip_address:
         ip_address = ip_address.split(',')[0]
     else:
         ip_address = request.META.get('REMOTE_ADDR')
+
     if request.method == 'POST':
         data_form = DataForm(request.POST, request.FILES)
         if data_form.is_valid():
