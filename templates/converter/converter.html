@@ -1,186 +1,127 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %} 
 
-<!---Main Body-->
-<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65 justify-between flex px-100 items-center">
-    <!--Details-->
-    <div>
-        <h1 class="text-white font-bold text-3xl pb-2">File Converter</h1>
-        <p class="text-white text-wrap w-xl">CloudConvert converts your image files online. Amongst many others,
-            we support PNG, JPG, GIF, WEBP and HEIC. You can use the options to control image resolution, quality
-            and file size.</p>
+<form method="POST">
+    {% csrf_token %}
+    <!---Main Body-->
+    <div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65 justify-between flex px-100 items-center">
+        <div>
+            <h1 class="text-white font-bold text-3xl pb-2">File Converter</h1>
+            <p class="text-white text-wrap w-xl">CloudConvert converts your image files online...</p>
+        </div>
+
+        <div class="flex self-center text-white items-center px-20">
+            convert
+            <label>
+                <select class="px-6 mx-4 py-4 border border-white rounded-md text-white" disabled>
+                    <option value="{{ from_format }}">
+                        {% if '-' in from_format %}
+                            ---
+                        {% else %}
+                            {{ from_format }}
+                        {% endif %}
+                    </option>
+                </select>
+            </label>
+            to
+            <label>
+                <select class="px-6 mx-4 py-4 border border-white rounded-md focus:outline-none text-white">
+                    <option value="{{ to_format }}" selected>{{ to_format }}</option>
+                </select>
+            </label>
+        </div>
     </div>
 
-    <!--Form-->
-    <div class="flex self-center text-white items-center px-20">
-        convert
-        <label>
-            <select class="px-6 mx-4 py-4 border border-white rounded-md" disabled>
-                {% if '-' in "{{ from_format }}" %}
-                    <option class="text-black" value="---">---</option>
-                {% else %}
-                   <option class="text-black" value="{{ from_format }}">{{ from_format }}</option>
-                {% endif %}
+    <!--Middle body-->
+    <div class="bg-[#f9f9f9] justify-center">
+        <div class="px-[45%]">
+            <button type="submit" class="bg-white text-[#A92655] text-xl px-18 font-bold py-4 border rounded-md my-4 border-[#A92655] hover:bg-[#A92655] hover:text-white">
+                Convert
+            </button>
+        </div>
 
+        <div
+                class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2">
+            <div class="flex justify-between bg-white px-4 py-6">
+                <h1 class="text-[#A92655] text-[1.12rem] font-[700]"> <i class="fa fa-wrench mr-1 text-[#A92655]"></i> OPTIONS</h1>
+            </div>
+            <hr class="text-[#f2f2f2]">
 
-            </select>
-        </label>
-        to
-        <label>
-            <select class="px-6 mx-4 py-4 border border-white rounded-md focus:outline-none">
-                <option class="text-black font-bold" value="{{ to_format }}" disabled selected hidden>
-                    {{ to_format }}</option>
-                <option class="text-black" value="png">PNG</option>
-                <option class="text-black" value="jpg">JPG</option>
-                <option class="text-black" value="gif">GIF</option>
-                <option class="text-black" value="pdf">PDF</option>
-            </select>
-        </label>
+            <!--Width & Height-->
+            <div class="flex justify-center px-6 gap-30">
+                <div class="flex py-4 items-center">
+                    <h1 class="font-light pb-4">Width</h1>
+                    <div class="px-[15%]">
+                        <input type="text" name="width" value="800" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                        <p class="text-[#a5a5a5] text-[12px]">Output width in pixels.</p>
+                    </div>
+                </div>
+                <div class="flex py-4 items-center">
+                    <h1 class="font-light pb-4">Height</h1>
+                    <div class="px-[15%]">
+                        <input type="text" name="height" value="600" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                        <p class="text-[#a5a5a5] text-[12px]">Output height in pixels.</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="text-[#f2f2f2]">
+
+            <!--Fit & Strip-->
+            <div class="flex px-43 gap-12">
+                <div class="flex py-4 justify-center text-start gap-19">
+                    <h1 class="font-light text-center">Fit</h1>
+                    <div>
+                        <select name="fit" class="border border-[#dadada] rounded-sm py-[6px] w-73">
+                            <option value="fit">fit</option>
+                            <option value="max">max</option>
+                            <option value="scale">scale</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="flex py-2 justify-center text-start gap-[90px]">
+                        <h1 class="font-light self-center pb-10">Strip</h1>
+                        <div>
+                            <input type="radio" name="strip" value="yes" checked class="accent-[#A92655]"> Yes
+                            <input type="radio" name="strip" value="no" class="accent-[#A92655]"> No
+                        </div>
+                    </div>
+                    <div class="flex py-2 pl-2 justify-center text-start gap-[50px]">
+                        <h1 class="font-light self-center pb-10">Background</h1>
+                        <div>
+                            <input type="radio" name="remove_bg" value="yes" class="accent-[#A92655]"> Yes
+                            <input type="radio" name="remove_bg" value="no" checked class="accent-[#A92655]"> No
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="text-[#f2f2f2]">
+
+            <!--Quality-->
+            <div class="flex py-4 px-41 items-center">
+                <h1 class="font-light pb-4">Quality</h1>
+                <div class="px-[6%]">
+                    <input type="text" name="quality" value="90" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                </div>
+            </div>
+        </div>
     </div>
+</form>
+
+{% if done %}
+<div class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2 py-[50px] container my-8 px-8">
+    <h2 class="text-[#A92655] font-bold mb-4">Download Files:</h2>
+    {% for c in obj.converted_files.all %}
+        <div class="flex justify-between py-2 border border-[#f2f2f2] px-4">
+            <span>{{ c.file.name }}</span>
+            <a href="{{ c.file.url }}" download class="text-blue-600 font-bold">Download</a>
+        </div>
+    {% endfor %}
 </div>
+{% endif %}
 
-<!--Middle body-->
-<div class="bg-[#f9f9f9] justify-center">
+<!--Bottom Body Detail Boxes-->
+{% include 'converter_details.html' %}
 
-    <!--Select File Button-->
-    <div class="px-[45%]">
-        <button
-                class="bg-white text-[#A92655] text-xl px-18 font-bold py-4 border rounded-md my-4 border-[#A92655] hover:bg-[#A92655] hover:text-white">
-            Convert
-        </button>
-    </div>
 
-    <!--Options Box-->
-    <div class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2">
-        <div class="flex justify-between bg-white px-4 py-6">
-            <h1 class="text-[#A92655] text-[1.12rem] font-[700]"> <i class="fa fa-wrench mr-1 text-[#A92655]"></i>
-                OPTIONS</h1>
-            <i title=" Setting these options is optional. The default values are a good start for most cases."
-               class="fa fa-question-circle float-right text-[#A92655] pt-1"></i>
-        </div>
-
-        <hr class="text-[#f2f2f2]">
-
-        <!--Width & Height-->
-        <div class="flex justify-center px-6 gap-30">
-            <div class="flex py-4 items-center">
-                <h1 class="font-light pb-4">Width</h1>
-                <div class="px-[15%]">
-                    <form>
-                        <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px]
-                         px-14">
-                    </form>
-                    <p class="text-[#a5a5a5] text-[12px]">Output width in pixels.</p>
-                </div>
-            </div>
-            <div class="flex py-4 items-center">
-                <h1 class="font-light pb-4">Height</h1>
-                <div class="px-[15%]">
-                    <form>
-                        <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px]
-                         px-14">
-                    </form>
-                    <p class="text-[#a5a5a5] text-[12px]">Output height in pixels.</p>
-                </div>
-            </div>
-        </div> 
-        <hr class="text-[#f2f2f2]">
-
-    
-        <!--Fit & Strip-->
-        <div class="flex px-43 gap-30">
-            <div class="flex py-4 justify-center text-start gap-19">
-                <h1 class="font-light text-center">Fit</h1>
-                <div>
-                    <select class="border border-[#dadada] text-left border border-[#dadada] rounded-sm py-[6px] w-73
-                     text-start text-left items-start ">
-                        <option class="text-start text-left">fit</option>
-                        <option class=" text-start text-left">max</option>
-                        <option class=" text-start text-left">scale</option>
-                    </select>
-                    <p class="text-[#a5a5a5] text-[12px] w-73">Sets the mode of resizing the image. "Max" resizes the
-                        image to fit within the width and height, but will not increase the size of the image if it is
-                        smaller than width or height. "Crop" resizes the image to fill the width and height dimensions
-                        and crops any excess image data. "Scale" enforces the image width and height by scaling.</p>
-                </div>
-            </div>
-            <div>
-                <div class="flex py-2 justify-center text-start gap-5">
-                <h1 class="font-light self-center pb-10">Strip</h1>
-                <div class="px-[15%]">
-                    <form>
-                        <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
-                         rounded-sm py-[6px] px-14">&nbsp;Yes
-                        <div class="block"></div>
-                        <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
-                         rounded-sm py-[6px] px-14">&nbsp;No
-                    </form>
-                    <p class="text-[#a5a5a5] text-[12px] w-70">Remove any metadata such as EXIF data.</p>
-                </div>
-            </div>
-                <div class="flex py-2 justify-center text-start gap-5">
-                <h1 class="font-light self-center pb-10">Background</h1>
-                <div class="px-[15%]">
-                    <form>
-                        <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
-                         rounded-sm py-[6px] px-14">&nbsp;Yes
-                        <div class="block"></div>
-                        <input type="radio" class="accent-[#A92655] border border-[#dadada] border border-[#dadada]
-                         rounded-sm py-[6px] px-14">&nbsp;No
-                    </form>
-                    <p class="text-[#a5a5a5] text-[12px] w-70">Remove the background.</p>
-                </div>
-            </div>
-            </div>
-        </div>
-        <hr class="text-[#f2f2f2]">
-
-        <!--Quality-->
-        <div class="flex py-4 px-41 items-center">
-            <h1 class="font-light pb-4">Quality</h1>
-            <div class="px-[6%]">
-                <form>
-                    <input type="text" class="border border-[#dadada] border border-[#dadada] rounded-sm py-[6px]
-                     px-14">
-                </form>
-                <p class="text-[#A92655] text-[12px]">Zlib compression level (quality / 10) and filter-type
-                    (quality % 10).</p>
-            </div>
-        </div>
-        
-    </div>
-
-    <!--Converter Details Boxes-->
-    <div class="flex gap-5 justify-center m-6">
-        <div class="bg-white px-6 pt-6 pb-20 w-140 border border-b-2 border-[#f2f2f2]">
-        <div class="flex justify-between pb-4">
-            <h1 class="text-[#A92655] font-bold">
-                <i class="fa fa-file mr-1"></i>
-                &nbsp;WEBP
-            </h1>
-            <h1 class="text-[#A92655] font-[400]">WEBP Converter</h1>
-        </div>
-        <p>WebP ("weppy") is a file format which stores images with both lossy and lossless compression. It was
-            developed by Google, based on acquired technology of On2.</p>
-    </div>
-    <div class="bg-white px-6 pt-6 pb-20 w-140 border border-b-2 border-[#f2f2f2]">
-        <div class="flex justify-between pb-4">
-            <h1 class="text-[#A92655] font-bold">
-                <i class="fa fa-file mr-1"></i>
-                &nbsp;PNG
-            </h1>
-            <h1 class="text-[#A92655] font-[400]">WEBP Converter</h1>
-        </div>
-        <p>PNG or Portable Network Graphic format is a graphic file format that uses lossless compression algorithm
-            to store raster images. It uses 2 stage compression methods. It is frequently used as website images
-            rather than printing as it supports only the RGB color model. So CMYK color images cannot be saved as PNG
-            image.</p>
-    </div>
-    </div>
-    
-
-    <!--Bottom Body Detail Boxes-->
-    {% include 'converter_details.html' %}
-
-</div>
-{% endblock%}
+{% endblock %}

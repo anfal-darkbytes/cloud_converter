@@ -14,8 +14,8 @@ SECRET_KEY = 'django-insecure-z9ka++w(23biig%h-p)75bs8*%cgm+fj4y7)$p%9p!xb+3%f80
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['headiest-presubsistent-jeanice.ngrok-free.dev', '*']
+CSRF_TRUSTED_ORIGINS = ['https://headiest-presubsistent-jeanice.ngrok-free.dev']
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'tinymce',
     'accounts',
     'rest_framework',
-
 ]
 
 MIDDLEWARE = [

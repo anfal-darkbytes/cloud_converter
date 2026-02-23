@@ -1,51 +1,45 @@
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import DataForm
 from django.db import transaction
-from .models import UploadMultiFileModel, ConvertModel
-from .utils import convert_file, get_extension
+from .models import UploadMultiFileModel, ConvertModel, ConvertedMultiFileModel
+from .utils import get_extension, execute_conversion
 import logging
-from django.utils import timezone
-from django.shortcuts import get_object_or_404
-from .models import ConvertedMultiFileModel
+from concurrent.futures import ProcessPoolExecutor
+from django.core.files.base import ContentFile
 
-logger = logging.getLogger('cloudConverterApp/web_views.py')
+
+logger = logging.getLogger(__name__)
 
 def home(request):
-    ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
-
-    if ip_address:
-        ip_address = ip_address.split(',')[0]
-    else:
-        ip_address = request.META.get('REMOTE_ADDR')
+    ip_address = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR')).split(',')[0]
 
     if request.method == 'POST':
         data_form = DataForm(request.POST, request.FILES)
-        if data_form.is_valid():
-            files = request.FILES.getlist('file_picked')
-            to_file = data_form.cleaned_data['to_file'].upper()
-            from_formats = []
-            last_obj = None
+        files = request.FILES.getlist('file_picked')
 
+        if data_form.is_valid() and files:
+            to_file = data_form.cleaned_data['to_file'].upper()
+            convert_session = ConvertModel.objects.create(
+                ipaddr=ip_address,
+                to_format=to_file
+            )
+
+            from_formats = set()
             with transaction.atomic():
                 for f in files:
-                    uploaded_instance = UploadMultiFileModel.objects.create(file=f)
-
-                    file_extension = get_extension(f).upper()
-                    from_formats.append(file_extension)
-
-                    last_obj = ConvertModel.objects.create(
-                        ipaddr= ip_address,
-                        uploaded=uploaded_instance,
-                        from_format=file_extension,
-                        to_format=to_file,
-                        created_at=timezone.now()
+                    UploadMultiFileModel.objects.create(
+                        file=f,
+                        convert=convert_session
                     )
+                    from_formats.add(get_extension(f).upper())
 
-            from_file_ext_slug = "-".join(sorted(set(from_formats)))
+            convert_session.from_format = "-".join(sorted(from_formats))
+            convert_session.save()
 
-            return redirect('convert', from_format=from_file_ext_slug,
-                            to_format=to_file, pk=last_obj.pk)
+            return redirect('convert',
+                            from_format=convert_session.from_format,
+                            to_format=to_file,
+                            pk=convert_session.pk)
 
     return render(request, 'home/home.html', {'form': DataForm()})
 
@@ -53,32 +47,42 @@ def convert(request, from_format, to_format, pk):
     obj = get_object_or_404(ConvertModel, pk=pk)
 
     if request.method == 'POST':
-        uploaded_file = obj.uploaded.file
-        to_format = obj.to_format
+        params = {
+            'width': int(request.POST.get('width') or 800),
+            'height': int(request.POST.get('height') or 600),
+            'fit': request.POST.get('fit', 'fit'),
+            'strip': request.POST.get('strip') == 'yes',
+            'remove_bg': request.POST.get('remove_bg') == 'yes',
+            'quality': int(request.POST.get('quality') or 90),
+        }
 
-        output_file = convert_file(uploaded_file, to_format)
+        uploaded_items = obj.uploaded_files.all()
 
-        converted_instance = ConvertedMultiFileModel()
+        with ProcessPoolExecutor() as executor:
+            futures = {
+                executor.submit(execute_conversion, item.file.read(), to_format, params): item
+                for item in uploaded_items
+            }
 
-        file_name = f"converted_{obj.pk}.{to_format.lower()}"
-        converted_file = InMemoryUploadedFile(
-            output_file,
-            None,
-            file_name,
-            f'image/{to_format.lower()}',
-            output_file.tell(),
-            None
-        )
+            for future in futures:
+                try:
+                    result_bytes = future.result()
+                    original_item = futures[future]
 
-        converted_instance.file.save(file_name, converted_file)
-        converted_instance.save()
+                    file_name = f"conv_{original_item.id}.{to_format.lower()}"
+                    converted_instance = ConvertedMultiFileModel(convert=obj)
+                    converted_instance.file.save(file_name, ContentFile(result_bytes))
+                except Exception as e:
+                    logger.error(f"Conversion Error: {e}")
 
-        obj.converted = converted_instance
-        obj.save()
+        return render(request, 'converter/converter.html', {'obj': obj, 'done': True})
 
-        return render(request, 'converter/converter.html', {'obj': obj})
-
-    return render(request, 'converter/converter.html', {'from_format': from_format, 'to_format': to_format, 'pk': pk})
+    return render(request, 'converter/converter.html', {
+        'from_format': from_format,
+        'to_format': to_format,
+        'pk': pk,
+        'obj': obj
+    })
 
 
 def privacy_policy(request):
