@@ -6,7 +6,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from datetime import timedelta
 from rembg import remove
-from .models import ConvertModel
+
 
 
 def execute_conversion(file_bytes, to_ext, params):
@@ -49,5 +49,6 @@ def get_filename(file):
 
 
 def del_old_conversions():
+    from .models import ConvertModel
     life_span = timezone.now() - timedelta(hours=10)
     ConvertModel.objects.filter(created_at__lt=life_span).delete()

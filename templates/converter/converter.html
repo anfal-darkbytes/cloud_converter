@@ -7,7 +7,9 @@
     <div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65 justify-between flex px-100 items-center">
         <div>
             <h1 class="text-white font-bold text-3xl pb-2">File Converter</h1>
-            <p class="text-white text-wrap w-xl">CloudConvert converts your image files online...</p>
+            <p class="text-white text-wrap w-xl">CloudConvert converts your image files online. Amongst many others, we
+                support PNG, JPG, GIF, WEBP and HEIC. You can use the options to control image resolution, quality and
+                file size.</p>
         </div>
 
         <div class="flex self-center text-white items-center px-20">
@@ -31,9 +33,9 @@
             </label>
         </div>
     </div>
-
+{% if not done %}
     <!--Middle body-->
-    <div class="bg-[#f9f9f9] justify-center">
+    <div class="justify-center">
         <div class="px-[45%]">
             <button type="submit" class="bg-white text-[#A92655] text-xl px-18 font-bold py-4 border rounded-md my-4 border-[#A92655] hover:bg-[#A92655] hover:text-white">
                 Convert
@@ -71,12 +73,22 @@
                 <div class="flex py-4 justify-center text-start gap-19">
                     <h1 class="font-light text-center">Fit</h1>
                     <div>
+                        <div>
                         <select name="fit" class="border border-[#dadada] rounded-sm py-[6px] w-73">
                             <option value="fit">fit</option>
                             <option value="max">max</option>
                             <option value="scale">scale</option>
                         </select>
+                        </div>
+                        <div class="text-[#a5a5a5] text-[12px] max-w-[300px]">
+                            <p>Sets the mode of resizing the image. "Max" resizes the image to fit within the width and
+                                height, but will not increase the size of the image if it is smaller than width or
+                                height. "Crop" resizes the image to fill the width and height dimensions and crops any
+                                excess image data. "Scale" enforces the image width and height by scaling.</p>
+                        </div>
                     </div>
+
+
                 </div>
                 <div class="">
                     <div class="flex py-2 justify-center text-start gap-[90px]">
@@ -101,14 +113,20 @@
             <div class="flex py-4 px-41 items-center">
                 <h1 class="font-light pb-4">Quality</h1>
                 <div class="px-[6%]">
-                    <input type="text" name="quality" value="90" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                    <div>
+                        <input type="text" name="quality" value="90" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                    </div>
+                     <div class="text-[#a5a5a5] text-[12px] max-w-[300px]">
+                        <p>Zlib compression level (quality / 10) and filter-type (quality % 10).</p>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 </form>
 
-{% if done %}
+{% else %}
 <div class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2 py-[50px] container my-8 px-8">
     <h2 class="text-[#A92655] font-bold mb-4">Download Files:</h2>
     {% for c in obj.converted_files.all %}
