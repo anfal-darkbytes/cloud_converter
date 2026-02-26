@@ -96,9 +96,9 @@ def apis(request):
 
 def contact_us(request):
     if request.method == 'POST':
-        name = request.POST.get('name', '')
-        email = request.POST.get('email', ''),
-        subject = request.POST.get('subject', '')
+        name = request.POST.get('name')
+        email = request.POST.get('email'),
+        subject = request.POST.get('subject')
         comment = request.POST.get('comment')
 
         error = ''
