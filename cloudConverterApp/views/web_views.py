@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from cloudConverterApp.forms import DataForm
 from django.db import transaction
-from cloudConverterApp.models import UploadMultiFileModel, ConvertModel, ConvertedMultiFileModel
+from cloudConverterApp.models import UploadMultiFileModel, ConvertModel, ConvertedMultiFileModel, ContactUsModel
 from cloudConverterApp.utils import get_extension, execute_conversion
 import logging
 from concurrent.futures import ProcessPoolExecutor
 from django.core.files.base import ContentFile
-from cloudConverterApp.thread import CleanUpFiles
 
 
 logger = logging.getLogger(__name__)
@@ -94,3 +93,28 @@ def terms_condition(request):
 
 def apis(request):
     return render(request, 'apis/apis.html')
+
+def contact_us(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', ''),
+        subject = request.POST.get('subject', '')
+        comment = request.POST.get('comment')
+
+        error = ''
+        done = False
+        try:
+            ContactUsModel.objects.create(
+                name=name,
+                email=email,
+                subject=subject,
+                content=comment
+            )
+            done = True
+        except Exception as e:
+            print(f'error: {str(e)}')
+            error = str(e)
+
+        return render(request, 'contact_us/contact_us.html', {'done': done, 'error': error})
+
+    return render(request, 'contact_us/contact_us.html')

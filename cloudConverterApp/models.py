@@ -28,4 +28,11 @@ class ConvertedMultiFileModel(models.Model):
         related_name='converted_files'
     )
 
+class ContactUsModel(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(null=False)
+    subject = models.CharField(max_length=255)
+    content = models.TextField()
 
+    def __str__(self):
+        return f'{self.name}'

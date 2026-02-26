@@ -22,7 +22,7 @@
 </div>
 {% include 'converter_details.html' %}
 
-<div class="bg-[#202020]">
+<div class="bg-gradient-to-r from-[#202020] to-[#3a3a3a]">
     <div class="overflow-x-hidden justify-items-center">
        <img src="{% static 'images/img.png' %}"
             alt="image not found" class="block mx-auto w-1/3 h-auto py-8 rounded-lg shadow-md">
@@ -34,17 +34,21 @@
 </div>
 
 <div class="gap-8 container mx-auto justify-center py-8">
-    <div class="justify-self-center"><h1 class="text-[16px] text-[#A92655] font-[600] py-8">ON-DEMAND, TRANSPARENT
+    <div class="justify-self-center"><h1 class="text-[16px] text-[#A92655] font-[600] py-2">ON-DEMAND, TRANSPARENT
         PRICING</h1></div>
     <div class="flex justify-self-center">
-        <h1 class="text-[16px] text-[#A92655] font-[600]">Starting at</h1>
-        <h1 class="text-[22px] text-[#A92655] font-[600]">&nbsp US$0.008</h1>
-        <h1 class="text-[16px] text-[#A92655] font-[600]">&nbsp per file</h1>
+        <h1 class="text-[22px] text-[#A92655] font-[700] self-center">Starting at</h1>
+        <h1 class="text-[48px] text-[#A92655] font-[700]">&nbspUS$0.008</h1>
+        <h1 class="text-[22px] text-[#A92655] font-[700] self-center">&nbsp per file</h1>
     </div>
 
-    <div class="gap-8 container mx-auto justify-center w-full max-w-md px-10 py-8">
+
+    <div class="gap-8 container mx-auto justify-center w-full max-w-[300px] px-10 py-4">
       <input type="range" min="0" max="100" value="30"
         class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#A92655]">
     </div>
+        <div class="flex justify-self-center py-4 opacity-[.7]">
+            <p>Corresponds to a one-time payment of <b>US$274.00.</b> Checkout the full pricing information.</p>
+        </div>
 </div>
 {% endblock %}
