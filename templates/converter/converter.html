@@ -4,18 +4,20 @@
 <form method="POST">
     {% csrf_token %}
     <!---Main Body-->
-    <div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65 justify-between flex px-100 items-center">
+    <div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] md:h-65 justify-between md:flex md:px-100 items-center">
         <div>
-            <h1 class="text-white font-bold text-3xl pb-2">File Converter</h1>
-            <p class="text-white text-wrap w-xl">CloudConvert converts your image files online. Amongst many others, we
+            <h1 class="text-white font-boldtext-xl md:text-2xl px-[10%] md:text-3xl md:pb-2">File Converter</h1>
+            <p class="text-white text-wrap text-[12px] md:text-[18px] text-wrap md:w-2xl px-[10%] md:w-xl">CloudConvert converts your image files online. Amongst many
+                others, we
                 support PNG, JPG, GIF, WEBP and HEIC. You can use the options to control image resolution, quality and
                 file size.</p>
         </div>
 
-        <div class="flex self-center text-white items-center px-20">
+        <div
+                class="flex self-center text-white items-center md:px-20 justify-center self-start text-white pb-[4%] gap-2 py-2">
             convert
             <label>
-                <select class="px-6 mx-4 py-4 border border-white rounded-md text-white" disabled>
+                <select class="md:px-6 md:mx-4 md:py-4 md:border md:border-white md:rounded-md text-white px-4 md:px-6 py-2 md:py-4 border md:border-2 border-1 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none" disabled>
                     <option value="{{ from_format }}">
                         {% if '-' in from_format %}
                             ---
@@ -27,8 +29,11 @@
             </label>
             to
             <label>
-                <select class="px-6 mx-4 py-4 border border-white rounded-md focus:outline-none text-white">
-                    <option value="{{ to_format }}" selected>{{ to_format }}</option>
+                <select
+                        class="md:px-6 md:mx-4 md:py-4 md:border md:border-white md:rounded-md text-white px-4 md:px-6
+                        py-2 md:py-4 border md:border-2 border-1 border-[#f2f2f2] rounded-md text-[14px]
+                        focus:outline-none">
+                    <option class="text-black" value="{{ to_format }}" selected>{{ to_format }}</option>
                 </select>
             </label>
         </div>
@@ -36,31 +41,38 @@
 {% if not done %}
     <!--Middle body-->
     <div class="justify-center">
-        <div class="px-[45%]">
-            <button type="submit" class="bg-white text-[#A92655] text-xl px-18 font-bold py-4 border rounded-md my-4 border-[#A92655] hover:bg-[#A92655] hover:text-white">
+        <div class="place-self-center md:px-[45%]">
+            <button type="submit"
+                    class="text-[12px] bg-[#A92655] container mx-auto w-[150px] my-2 py-4 items-center text-white border
+                     border-[#A92655] rounded-[8px] md:bg-white md:text-[#A92655] md:text-xl md:px-18 md:font-bold
+                     md:py-4 md:border md:rounded-md md:my-4 md:border-[#A92655] md:hover:bg-[#A92655] md:hover:text-white">
                 Convert
             </button>
         </div>
 
-        <div class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2">
-            <div class="flex justify-between bg-white px-4 py-6">
-                <h1 class="text-[#A92655] text-[1.12rem] font-[700]"> <i class="fa fa-wrench mr-1 text-[#A92655]"></i> OPTIONS</h1>
+        <div
+                class="place-self-center bg-white w-[90%] md:w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2 text-wrap">
+            <div class="flex justify-between bg-white px-2 py-4 md:px-4 md:py-6">
+                <h1 class="text-[#A92655] text-[14px] md:text-[1.12rem] font-[700]"> <i class="fa fa-wrench mr-1
+                text-[#A92655]"></i> OPTIONS</h1>
             </div>
             <hr class="text-[#f2f2f2]">
 
             <!--Width & Height-->
-            <div class="flex justify-center px-6 gap-30">
+            <div class="md:flex justify-center px-4 md:gap-15 md:px-6 md:gap-30">
                 <div class="flex py-4 items-center">
-                    <h1 class="font-light pb-4">Width</h1>
+                    <h1 class="font-light text-[14px] md:pb-4">Width</h1>
                     <div class="px-[15%]">
-                        <input type="text" name="width" value="800" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                        <input type="text" name="width" value="800"
+                               class="container mr-4 py-2 px-2 border border-[#dadada] rounded-sm md:py-[6px] md:px-14 text-black opacity-[.7]">
                         <p class="text-[#a5a5a5] text-[12px]">Output width in pixels.</p>
                     </div>
                 </div>
-                <div class="flex py-4 items-center">
-                    <h1 class="font-light pb-4">Height</h1>
-                    <div class="px-[15%]">
-                        <input type="text" name="height" value="600" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                <div class="flex md:py-4 items-center">
+                    <h1 class="font-light text-[14px] md:pb-4">Height</h1>
+                    <div class="px-[14%]">
+                        <input type="text" name="height" value="600"
+                               class="container mr-4 py-2 px-2 border border-[#dadada] rounded-sm md:py-[6px] md:px-14 text-black opacity-[.7]">
                         <p class="text-[#a5a5a5] text-[12px]">Output height in pixels.</p>
                     </div>
                 </div>
@@ -68,12 +80,14 @@
             <hr class="text-[#f2f2f2]">
 
             <!--Fit & Strip-->
-            <div class="flex px-43 gap-12">
-                <div class="flex py-4 justify-center text-start gap-19">
-                    <h1 class="font-light text-center">Fit</h1>
+            <div class="md:flex px-[6%] md:px-43 md:gap-12">
+                <div class="flex py-4 text-start gap-15 md:gap-19">
+                    <h1 class="font-light text-[14px] text-center pt-4">Fit</h1>
                     <div>
                         <div>
-                        <select name="fit" class="border border-[#dadada] rounded-sm py-[6px] w-73">
+                        <select name="fit"
+                                class="container mr-4 py-2 px-2 border border-[#dadada] rounded-sm md:py-[6px] md:px-14
+                                text-black opacity-[.7] py-[6px] md:w-73 text-black opacity-[.7]">
                             <option value="fit">fit</option>
                             <option value="max">max</option>
                             <option value="scale">scale</option>
@@ -90,18 +104,26 @@
 
                 </div>
                 <div class="">
-                    <div class="flex py-2 justify-center text-start gap-[90px]">
-                        <h1 class="font-light self-center pb-10">Strip</h1>
-                        <div>
-                            <input type="radio" name="strip" value="yes" checked class="accent-[#A92655]"> Yes
-                            <input type="radio" name="strip" value="no" class="accent-[#A92655]"> No
+                    <div class="flex py-2 md:justify-center text-start gap-[90px] md:gap-[90px]">
+                        <h1 class="font-light text-[14px] text-center pb-10">Strip</h1>
+                        <div class="gap-8 w-[100px]">
+                            <input type="radio" name="strip" value="yes" checked
+                                   class="font-light text-[14px] text-center accent-[#A92655]"> Yes
+                            <input type="radio" name="strip" value="no"
+                                   class="font-light text-[14px] text-center accent-[#A92655]"> No
                         </div>
                     </div>
-                    <div class="flex py-2 pl-2 justify-center text-start gap-[50px]">
-                        <h1 class="font-light self-center pb-10">Background</h1>
+                    <div
+                            class="flex py-2 md:justify-center text-start gap-12 md:pl-2 md:justify-center md:text-start md:gap-[50px]">
+                        <h1 class="font-light text-[14px] text-center  pb-10">Background</h1>
                         <div>
-                            <input type="radio" name="remove_bg" value="yes" class="accent-[#A92655]"> Yes
-                            <input type="radio" name="remove_bg" value="no" checked class="accent-[#A92655]"> No
+                            <label for="yes"></label>
+                            <input type="radio" id="yes" name="remove_bg" value="yes"
+                                   class="font-light text-[14px] text-center accent-[#A92655]"> Yes
+
+                            <label for="no"></label>
+                            <input type="radio" id="no" name="remove_bg" value="no" checked
+                                   class="font-light text-[14px] text-center accent-[#A92655]"> No
                         </div>
                     </div>
                 </div>
@@ -109,11 +131,13 @@
             <hr class="text-[#f2f2f2]">
 
             <!--Quality-->
-            <div class="flex py-4 px-41 items-center">
-                <h1 class="font-light pb-4">Quality</h1>
-                <div class="px-[6%]">
+            <div class="flex px-[6%] gap-2 py-4 text-start gap-15 md:gap-19 md:py-4 md:px-41 md:items-center">
+                <h1 class="font-light text-[14px] text-center  pt-2">Quality</h1>
+                <div class="">
                     <div>
-                        <input type="text" name="quality" value="90" class="border border-[#dadada] rounded-sm py-[6px] px-14">
+                        <input type="text" name="quality" value="90"
+                               class="container mr-4 px-2 border border-[#dadada] rounded-sm md:py-[6px] md:px-14
+                                text-black opacity-[.7] py-4 md:w-73 text-black opacity-[.7] py-[6px] md:px-14">
                     </div>
                      <div class="text-[#a5a5a5] text-[12px] max-w-[300px]">
                         <p>Zlib compression level (quality / 10) and filter-type (quality % 10).</p>
@@ -126,12 +150,14 @@
 </form>
 
 {% else %}
-<div class="bg-white w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2 py-[50px] container my-8 px-8">
-    <h2 class="text-[#A92655] font-bold mb-4">Download Files:</h2>
+<div
+        class="bg-white w-[90%] md:w-[60%] justify-self-center border border-[#f2f2f2] rounded-sm border-b-2 md:py-[50px] container my-4 md:my-8 py-4 px-4 md:px-8">
+    <h2 class="text-[#A92655] text-[14px] font-bold mb-4">Download Files:</h2>
     {% for c in obj.converted_files.all %}
-        <div class="flex justify-between py-2 border border-[#f2f2f2] px-4">
+        <div
+                class="flex justify-between py-2 border border-[#f2f2f2] md:px-4 px-2 text-[12px] rounded-[8px] container my-2">
             <span>{{ c.file.name }}</span>
-            <a href="{{ c.file.url }}" download class="text-blue-600 font-bold">Download</a>
+            <a href="{{ c.file.url }}" download class="text-[#A92655] font-bold">Download</a>
         </div>
     {% endfor %}
 </div>

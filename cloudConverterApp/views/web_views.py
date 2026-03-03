@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from cloudConverterApp.forms import DataForm
 from django.db import transaction
 from cloudConverterApp.models import UploadMultiFileModel, ConvertModel, ConvertedMultiFileModel, ContactUsModel
@@ -6,7 +6,8 @@ from cloudConverterApp.utils import get_extension, execute_conversion
 import logging
 from concurrent.futures import ProcessPoolExecutor
 from django.core.files.base import ContentFile
-
+from django.contrib import messages
+from urllib.parse import urlencode
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,6 @@ def home(request):
                             pk=convert_session.pk)
 
     return render(request, 'home/home.html', {'form': DataForm()})
-
 
 def convert(request, from_format, to_format, pk):
     obj = get_object_or_404(ConvertModel, pk=pk)
@@ -97,24 +97,17 @@ def apis(request):
 def contact_us(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        email = request.POST.get('email'),
+        email = request.POST.get('email')
         subject = request.POST.get('subject')
-        comment = request.POST.get('comment')
+        content = request.POST.get('content')
 
-        error = ''
-        done = False
         try:
             ContactUsModel.objects.create(
-                name=name,
-                email=email,
-                subject=subject,
-                content=comment
+                name=name, email=email, subject=subject, content=content
             )
-            done = True
+            return redirect(f"{reverse('contact_us')}?done=True")
         except Exception as e:
-            print(f'error: {str(e)}')
-            error = str(e)
-
-        return render(request, 'contact_us/contact_us.html', {'done': done, 'error': error})
+            params = urlencode({'error': str(e)})
+            return redirect(f"{reverse('contact_us')}?{params}")
 
     return render(request, 'contact_us/contact_us.html')

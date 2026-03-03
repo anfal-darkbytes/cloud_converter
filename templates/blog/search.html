@@ -2,30 +2,30 @@
 {% block cloudConverterBody %}
 
     {% if not filter_blog %}
-        <div class="container my-[125px] mx-auto max-w-6xl px-4 overflow-x-hidden  justify-items-center ">
+        <div class="container my-[125px] mx-auto max-w-6xl px-4 overflow-x-hidden justify-items-center ">
             <img src="https://www.shutterstock.com/image-vector/no-item-found-vector-solid-260nw-2083860241.jpg"
                  alt="image not found">
         </div>
     {% endif %}
-    <div class="flex justify-items-center pb-12 container mx-auto  gap-15 max-w-6xl px-4 overflow-x-hidden ">
-        <div class="flex items-center justify-between flex-wrap gap-2 py-8">
+    <div class="flex justify-center pb-8 md:pb-12 container mx-auto md:gap-15 md:max-w-6xl md:px-6 overflow-x-hidden">
+        <div class="flex items-center justify-center md:justify-between flex-wrap md:gap-4 md:py-8">
             {% for blog in filter_blog %}
                  <a href="{% url 'blog_by_slug' slug=blog.slug %}">
-                    <div class="border border-[#f2f2f2] rounded-t-[12px] my-[10px] w-[350px] h-[350px] overflow-hidden
+                    <div class="border border-[#f2f2f2] rounded-t-[12px] container mt-4 md:my-[10px] w-[320px] md:w-[350px] h-[300px] md:h-[350px] overflow-hidden
                     text-ellipsis">
                         <div class="flex items-center text-[4rem] h-45">
                             <img class="object-fill" src="{{ blog.image.url }}" alt="image not found">
                         </div>
 
-                        <div class="overflow-hidden text-ellipsis py-4">
-                            <h1 class="font-bold text-[1.21rem] pt-4 opacity-[0.8] overflow-x-hidden px-2">
+                        <div class="overflow-hidden text-ellipsis py-2 md:py-4">
+                            <h1 class="font-bold text-[16px] md:text-[1.21rem] pt-4 overflow-x-hidden px-2 text-black opacity-[.8]">
                                 {{ blog.title | safe}}
                             </h1>
-                            <p class=" opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
+                            <p class="text-[12px] opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
                                 {{ blog.description | safe }}
                             </p>
                         </div>
-                        <div class="flex justify-between px-2 font-md text-[#a5a5a5]">
+                        <div class="text-[12px] flex justify-between px-2 font-md text-[#a5a5a5]">
                             <p class="text-[#b53836]">{{ blog.author }}</p>
                             <p class="text-black opacity-[.7]">{{ blog.uploaded_date }}</p>
                         </div>

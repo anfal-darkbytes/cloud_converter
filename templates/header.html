@@ -1,21 +1,51 @@
 <header class="bg-gradient-to-r from-[#A92655] to-[#FD8D67]">
-    <div class="px-50">
-        <nav class="flex justify-between px-50 py-3">
-        <ul class="flex text-white gap-10 text-base font-medium">
-            <ul class="flex text-white gap-2">
-                <li><a href="/"><img class="h-8"  src="https://cloudconvert.com/images/logo_flat_110_borderless.png"
-                                     alt="no logo found"></a></li>
-                <li><a href="/"><li class="flex text-2xl"><h1 class=" flex font-thin">cloud</h1>converter</li></a></li>
+    <div class="max-w-[1440px] mx-auto px-8 md:px-[10%]">
+        <nav class="flex justify-between items-center py-3 md:gap-[100px]">
+
+            <ul class="flex items-center text-white gap-8 text-base font-medium">
+                <li class="gap-8">
+                    <a href="/" class="flex items-center gap-2">
+                        <img class="h-8" src="https://cloudconvert.com/images/logo_flat_110_borderless.png" alt="CloudConverter Logo">
+                        <span class="text-2xl"><span class="font-thin">zix</span>converter</span>
+                    </a>
+                </li>
             </ul>
-            <li class="py-2">Tools</li>
-             <a href="{% url 'apis' %}"><li class="py-2">API</li></a>
-            <a href="{% url 'blog' %}"><li class="py-2">Blog</li></a>
-        </ul>
-        <ul class="flex text-white gap-8 font-medium text-base">
-            <li class="py-2">Sign Up</li>
-            <li class="py-2"><a href="{% url 'login' %}" alt="">Login</a></li>
-       </ul>
-    </nav>
+
+            <ul class="hidden md:flex flex-1 items-center text-white gap-8 text-base font-medium">
+                <li><a href="/" class="py-2 hover:opacity-80">Tools</a></li>
+                <li><a href="{% url 'apis' %}" class="py-2 hover:opacity-80">API</a></li>
+                <li><a href="{% url 'blog' %}" class="py-2 hover:opacity-80">Blog</a></li>
+            </ul>
+
+            <ul class="hidden md:flex items-center text-white gap-4 font-medium text-base">
+                <li><a href="/" class="block py-2 hover:opacity-80">Sign Up</a></li>
+                <li><a href="{% url 'login' %}" class="block py-2 hover:opacity-80">Login</a></li>
+            </ul>
+
+
+                <button onclick="toggleVisibility()" class="block sm:hidden text-white text-xl">
+                     <i class="fa fa-ellipsis-v"></i>
+                </button>
+
+
+        </nav>
+        <nav id="more-btn" class="hidden md:hidden flex items-center py-[4%] text-[12px]">
+            <ul
+                    class="flex gap-4 sm:hidden md:flex justify-items-end flex-1 pr-2 items-center text-white font-bold">
+                <li class=""><a href="/" class="py-2 hover:opacity-80">Tools </a></li>
+                <li class=""><a href="{% url 'apis' %}" class="py-2 hover:opacity-80">API</a></li>
+                <li class=""><a href="{% url 'blog' %}" class="py-2 hover:opacity-80">Blog</a></li></ul>
+            <ul
+                    class="flex gap-8 sm:hidden md:flex justify-items-end flex-1 ml-12 pr-2 items-center text-white font-medium">
+                <li class=""><a href="/" class="block hover:opacity-80">Sign Up</a></li>
+                <li class=""><a href="{% url 'login' %}" class="block hover:opacity-80">Login</a></li>
+            </ul>
+        </nav>
     </div>
-    
 </header>
+<script>
+  function toggleVisibility() {
+    const element = document.getElementById('more-btn');
+    element.classList.toggle('hidden');
+  }
+</script>

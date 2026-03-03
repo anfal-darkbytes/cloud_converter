@@ -1,34 +1,32 @@
 <footer class="py-4 bg-gradient-to-r from-[#A92655] to-[#FD8D67]">
-    <div class="flex justify-between px-[20%]">
-         <div class="flex gap-16">
-        <ul>
-            <li class="font-medium text-white">Company</li>
-            <li class="text-white font-light text-base">About Us</li>
-            <li class="text-white font-light text-base">Security</li>
-        </ul>
-        <ul>
-            <li class="font-medium text-white">Resources</li>
-            <li class="text-white font-light text-base">Blog</li>
-            <li class="text-white font-light text-base">Status</li>
-        </ul>
-        <ul>
-            <li class="font-medium text-white">legal</li>
-            <li class="text-white font-light text-base"><a href="{% url 'privacy_policy' %}">Privacy</a></li>
-            <li class="text-white font-light text-base"><a href="{% url 'terms_condition' %}">Terms</a></li>
-            <li class="text-white font-light text-base">Imprint</li>
-        </ul>
-        <ul>
-            <li class="font-medium text-white">Contact</li>
-            <li class="text-white font-light text-base"><a href="{% url 'contact_us' %}">Contact Us</a></li>
-        </ul>
-    </div>
-    <div>
-        <p class="text-white">© 2026 Lunaweb GmbH</p>
-        <p class="text-white font-light">Made in Munich, Germany</p>
-    </div>
+    <div class="md:flex container mx-auto my-2 px-[10%] md:justify-between md:px-[13%] md:gap-8">
+         <div class="flex py-4 justify-between md:gap-16">
+            <ul class="py-2">
+                <li class="text-[14px] md:text-[18px] font-medium text-white">Company</li>
+                <li class="text-[12px] md:text-[16px] text-white font-light text-base">About Us</li>
+                <li class="text-[12px] md:text-[16px] text-white font-light text-base"><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            </ul>
+             <ul class="py-2">
+                <li class="text-[14px] md:text-[18px] font-medium text-white">legal</li>
+                <li
+                        class="text-[12px] md:text-[16px] text-white font-light text-base"><a href="{% url 'privacy_policy' %}">Privacy</a></li>
+                <li class="text-[12px] md:text-[16px] text-white font-light text-base"><a href="{% url 'terms_condition' %}">Terms</a></li>
+            </ul>
+            <ul class="py-2">
+                <li class="text-[14px] md:text-[18px] font-medium text-white">Resources</li>
+                <li class="text-[12px] md:text-[16px] text-white font-light text-base"><a href="{% url 'blog' %}">Blog</a></li>
+                <li class="text-[12px] md:text-[16px] text-white font-light text-base">Status</li>
+            </ul>
+         </div>
+
+        <div
+                class="justify-center text-center text-[12px] md:text-[18px] text-wrap py-4 px-8 md:px-2 md:text-[1.4rem] text-white md:py-8">
+            <p>© 2026 Lunaweb GmbH</p>
+            <p class="font-light">Made in Munich, Germany</p>
+        </div>
     </div>
    
-    <div class="flex justify-center text-[1.4rem] text-white py-12">
-        <p>We've already converted<h1 class="font-bold">&nbsp;2,814,590,401 files</h1>&nbsp;with a total size of&nbsp;<h1 class="font-bold"> &nbsp; 21,837 TB.</h1></p>
+    <div class="flex justify-center text-center text-[12px] text-wrap px-8 md:text-[1.4rem] text-white md:py-12">
+        <p>We've already converted <b>2,814,590,401 files</b> with a total size of <b>21,837 TB.</b></p>
     </div>
 </footer>

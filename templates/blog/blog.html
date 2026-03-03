@@ -2,23 +2,24 @@
 {% block cloudConverterBody %}
 
     <!--Bottom Body-->
-<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65">
-    <div class="justify-between container mx-auto max-w-6xl px-6 py-2 overflow-x-hidden">
-        <h1 class="text-white font-bold text-[22px] pb-2">Blog</h1>
-        <p class="text-white text-wrap w-xl">Lorem Ipsum is simply dummy text of the printing and typesetting
+<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] justify-arround block sm:flex items-center md:h-65">
+    <div class="max-w-[1440px] container mx-auto pb-[4%] lg:px-[5%] md:justify-between md:container md:mx-auto md:max-w-6xl md:px-6 md:py-2 md:overflow-x-hidden">
+        <h1 class="text-white font-bold text-[18px] md:text-2xl px-[10%] md:text-[22px] md:pb-2">Blog</h1>
+        <p class="text-white text-[12px] md:text-[18px] text-wrap md:w-2xl px-[10%] md:text-white md:text-wrap md:w-xl">Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
             printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
             five centuries.</p>
     </div>
-    <div class="flex justify-between container mx-auto gap-15 max-w-6xl px-6 overflow-x-hidden">
+    <div class="md:flex justify-between container mx-auto gap-15 max-w-6xl px-6 overflow-x-hidden">
         <div class="flex">
-             <h1 class="justify-items-center py-8 text-[22px] text-white font-bold
-            max-w-6xl ">Categories
+             <h1 class="text-[18px] justify-items-center px-[4%] md:py-8 md:text-[22px] text-white font-bold
+            md:ax-w-6xl">Categories
             </h1>
-            <form method="GET" action="{% url 'blog' %}" class="flex place-content-center">
+            <form method="GET" action="{% url 'blog' %}" class="md:flex place-content-start">
                 <label>
                     <select name="category" onchange="this.form.submit()" onscroll="catPagination()" class="container
-                    my-8 mx-4 border border-white border-2 text-white h-[35px] rounded-[8px] w-[200px] px-4 text-[14px]">
+                    md:my-8 md:mx-4 border border-white border-1 md:border-2 text-white h-[35px] rounded-[8px] w-[200px]
+                     px-2 md:px-4 text-[12px] md:text-[14px] outline-none">
                         <option value="" selected class="px-2 bg-[#FD8D67] hover:bg-[#A92655]">All</option>
                         {% for cat in categories %}
                             <option value="{{ cat.name|default:'' }}" {% if request.GET.category == cat.name %}selected
@@ -30,13 +31,13 @@
                 </label>
             </form>
         </div>
-        <div class="flex place-content-center">
-            <form method="GET" action="{% url 'search_by_query' %}" class="flex place-content-center gap-4">
+        <div class="md:flex place-content-center px-[5%] py-4 gap-2">
+            <form method="GET" action="{% url 'search_by_query' %}" class="gap-2 flex md:place-content-center md:gap-4">
                 <input type="text" name="q" id="search_query" value="{{ query|default:'' }}"
-                class="border border-white border-2 h-[35px] rounded-[8px] w-[250px] px-4 py-4 self-center
-                focus:outline-none caret-white" required>
+                class="text-white border border-white border-1 md:border-2 h-[35px] rounded-[8px] w-[215px] md:w-[250px] px-2 md:px-4 md:py-4 md:self-center
+                focus:outline-none outline-none md:caret-white" required>
                 <button type="submit"
-                    class="flex self-center justify-content-center container my-8 text-white border border-white border-2
+                    class="flex md:self-center md:justify-content-center md:container md:my-8 text-white border border-white md:border-2
                      text-[14px] px-[5%] py-[5px] rounded-md cursor-pointer"> Search
                 </button>
             </form>
@@ -52,25 +53,27 @@
                  alt="image not found">
         </div>
     {% endif %}
-    <div class="flex justify- pb-12 container mx-auto  gap-15 max-w-6xl px-6 overflow-x-hidden">
-        <div class="flex items-center justify-between flex-wrap gap-4 py-8">
+    <div
+            class="flex justify-center pb-8 md:pb-12 container mx-auto md:gap-15 md:max-w-6xl md:px-6 overflow-x-hidden">
+        <div class="flex items-center justify-center md:justify-between flex-wrap md:gap-4 md:py-8">
             {% for blog in blog_list %}
                  <a href="{% url 'blog_by_slug' slug=blog.slug %}">
-                    <div class="border border-[#f2f2f2] rounded-t-[12px] my-[10px] w-[350px] h-[350px] overflow-hidden
+                    <div
+                            class="border border-[#f2f2f2] rounded-t-[12px] container mt-4 md:my-[10px] w-[320px] md:w-[350px] h-[300px] md:h-[350px] overflow-hidden
                     text-ellipsis">
                         <div class="flex items-center text-[4rem] h-45">
                             <img class="object-fill" src="{{ blog.image.url }}" alt="image not found">
                         </div>
                         <!--content-->
-                        <div class="overflow-hidden text-ellipsis py-4">
-                            <h1 class="font-bold text-[1.21rem] pt-4 overflow-x-hidden px-2 text-black opacity-[.8]">
+                        <div class="overflow-hidden text-ellipsis py-2 md:py-4">
+                            <h1 class="font-bold text-[16px] md:text-[1.21rem] pt-4 overflow-x-hidden px-2 text-black opacity-[.8]">
                                 {{ blog.title | safe}}
                             </h1>
-                            <p class=" opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
+                            <p class="text-[12px] opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
                                 {{ blog.description | safe }}
                             </p>
                         </div>
-                        <div class="flex justify-between px-2 font-md text-[#a5a5a5]">
+                        <div class="text-[12px] flex justify-between px-2 font-md text-[#a5a5a5]">
                             <p class="text-[#A92655]">{{ blog.author }}</p>
                             <p class="text-black opacity-[.7]">{{ blog.uploaded_date }}</p>
                         </div>

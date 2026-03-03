@@ -4,21 +4,23 @@
 
 {% csrf_token %}
 <!---Main Body-->
-<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] h-65 justify-between flex px-100 items-center">
+<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] justify-arround block md:flex items-center">
     <!--Details-->
-    <div>
-        <h1 class="text-white font-bold text-3xl pb-2">File Converter</h1>
-        <p class="text-white text-wrap w-xl">CloudConvert is an online file converter. We support nearly all audio,
-            video, document, ebook, archive, image, spreadsheet, and presentation formats. To get started, use the
-            button below and select files to convert from your computer.
+    <div class="max-w-[1440px]
+     container mx-auto pb-[4%] md:py-4 md:px-[13%]">
+        <h1 class="text-white font-bold text-xl md:text-2xl px-[10%]">File Converter</h1>
+        <p class="text-white text-[12px] md:text-[18px] text-wrap md:w-2xl px-[10%]">CloudConvert is an online file
+            converter. We support nearly all audio, video, document, ebook, archive, image, spreadsheet, and
+            presentation formats. To get started, use the button below and select files to convert from your computer.
         </p>
     </div>
 
     <!--Options-->
-    <div class="flex self-center text-white items-center px-20">
+    <div class="flex justify-center self-start text-white items-center pb-[4%] gap-2">
         convert
         <label>
-            <select class="px-6 mx-4 py-4 border border-2 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none"
+            <select
+                    class="px-4 md:px-6 py-2 md:py-4 border md:border-2 border-1 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none"
                     name="from_file"
                     id="from_file" required>
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
@@ -31,7 +33,7 @@
         </label>
         to
         <label>
-            <select class="px-6 mx-4 py-4 border border-2 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none" name="to_file"
+            <select class="px-4 md:px-6 py-2 md:py-4 border md:border-2 border-1 border-[#f2f2f2] rounded-md text-[14px] focus:outline-none" name="to_file"
                     id="to_file" required>
                 <option class="text-black font-bold" value="" disabled selected hidden>. . .</option>
                 <option class="text-black" value="png">PNG</option>
@@ -44,24 +46,20 @@
     </div>
 </div>
 
-<!--Select File & Submit Button-->
-<div class="px-[40%] flex gap-2">
-    <input type="file" id="fileUpload" class="hidden" name="file_picked" required multiple>
-    <label for="fileUpload" class="flex items-center gap-4  text-[#A92655] border border-[#A92655] text-xl px-4 py-4
-    w-60 justify-self-center justify-arround border rounded-md my-4 border-2 cursor-pointer hover:bg-[#A92655]
-    hover:text-white transition">
-        <i class="fa-regular fa-file pl-10 pr-6"></i>
+<div class="md:px-[40%] flex justify-center">
+    <input type="file" id="fileUpload" class="hidden" name="file_picked"
+           required multiple onchange="this.form.submit()">
+
+    <label for="fileUpload"
+           class="flex text-[12px] bg-[#A92655] gap-2 container mx-auto max-w-[150px] my-2 px-8 py-4 items-center
+           text-white border border-[#A92655] rounded-[8px] md:gap-4 md:text-[#A92655] md:text-xl md:px-4 md:py-4
+           md:w-60 md:justify-self-center border md:rounded-md md:my-4 md:border-2 md:cursor-pointer
+           md:hover:bg-[#A92655] md:hover:text-white md:transition">
+        <i class="fa-regular fa-file md:pl-10 md:pr-6"></i>
         Select File
     </label>
-    <button type="submit" id='button1'
-            class="flex items-center gap-2 self-items-center text-[#A92655] border border-[#A92655] border-2
-    text-xl w-30 pl-6 justify-self-center border rounded-md my-4 cursor-pointer hover:bg-[#A92655] hover:text-white
-    transition">
-        Submit
-    </button>
 </div>
 </form>
-
 <!--Bottom Body Detail Boxes-->
 {% include 'converter_details.html' %}
 
