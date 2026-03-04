@@ -1,14 +1,9 @@
 
 import os
 from pathlib import Path
-from django.templatetags.static import static
-from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
-
-
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 SECRET_KEY = 'django-insecure-z9ka++w(23biig%h-p)75bs8*%cgm+fj4y7)$p%9p!xb+3%f80'
 
@@ -18,7 +13,6 @@ ALLOWED_HOSTS = ['headiest-presubsistent-jeanice.ngrok-free.dev', '*']
 CSRF_TRUSTED_ORIGINS = ['https://headiest-presubsistent-jeanice.ngrok-free.dev']
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
 
 INSTALLED_APPS = [
     'unfold',
@@ -34,6 +28,7 @@ INSTALLED_APPS = [
     'blog',
     'tinymce',
     'accounts',
+    'channels',
     'rest_framework',
 ]
 
@@ -180,7 +175,15 @@ TINYMCE_DEFAULT_CONFIG = {
 DATA_UPLOAD_MAX_MEMORY_SIZE= 26214400
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

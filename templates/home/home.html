@@ -4,10 +4,11 @@
 
 {% csrf_token %}
 <!---Main Body-->
-<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] justify-arround block md:flex items-center">
+<div
+        class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] justify-arround block md:flex items-center md:justify-center md:px-[30%]">
     <!--Details-->
     <div class="max-w-[1440px]
-     container mx-auto pb-[4%] md:py-4 md:px-[13%]">
+     container mx-auto pb-[4%] md:py-4 md:px-[18%]">
         <h1 class="text-white font-bold text-xl md:text-2xl px-[10%]">File Converter</h1>
         <p class="text-white text-[12px] md:text-[18px] text-wrap md:w-2xl px-[10%]">CloudConvert is an online file
             converter. We support nearly all audio, video, document, ebook, archive, image, spreadsheet, and
@@ -16,7 +17,7 @@
     </div>
 
     <!--Options-->
-    <div class="flex justify-center self-start text-white items-center pb-[4%] gap-2">
+    <div class="flex justify-center self-start text-white items-center pb-[4%] gap-2 md:self-center md:px-[25%]">
         convert
         <label>
             <select
@@ -51,10 +52,10 @@
            required multiple onchange="this.form.submit()">
 
     <label for="fileUpload"
-           class="flex text-[12px] bg-[#A92655] gap-2 container mx-auto max-w-[150px] my-2 px-8 py-4 items-center
-           text-white border border-[#A92655] rounded-[8px] md:gap-4 md:text-[#A92655] md:text-xl md:px-4 md:py-4
+           class="flex text-[12px] bg-[#A92655] gap-2 container mx-auto max-w-[150px] md:max-w-[250px] my-2 px-8 py-4 items-center
+           text-white border border-[#A92655] rounded-[8px] md:gap-4 md:text-xl md:px-4 md:py-4
            md:w-60 md:justify-self-center border md:rounded-md md:my-4 md:border-2 md:cursor-pointer
-           md:hover:bg-[#A92655] md:hover:text-white md:transition">
+           ">
         <i class="fa-regular fa-file md:pl-10 md:pr-6"></i>
         Select File
     </label>

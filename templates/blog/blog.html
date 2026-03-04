@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
 
-    <!--Bottom Body-->
-<div class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] justify-arround block sm:flex items-center md:h-65">
-    <div class="max-w-[1440px] container mx-auto pb-[4%] lg:px-[5%] md:justify-between md:container md:mx-auto md:max-w-6xl md:px-6 md:py-2 md:overflow-x-hidden">
-        <h1 class="text-white font-bold text-[18px] md:text-2xl px-[10%] md:text-[22px] md:pb-2">Blog</h1>
-        <p class="text-white text-[12px] md:text-[18px] text-wrap md:w-2xl px-[10%] md:text-white md:text-wrap md:w-xl">Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-            five centuries.</p>
+<!--Bottom Body-->
+<div
+        class="bg-gradient-to-r from-[#A92655] to-[#FD8D67] justify-arround md:justify-center block items-center md:items.start md:h-60">
+    <div
+            class="max-w-[1440px] container mx-auto pb-[4%] md:px-[2%] md:justify-between md:container md:mx-auto
+     md:max-w-6xl md:px-6 md:py-2 md:overflow-x-hidden">
+        <h1 class="text-white font-bold text-[18px] md:text-2xl px-[10%] md:px-[1%] md:text-[22px] md:pb-2">Blog</h1>
+        <p class="text-white text-[12px] md:text-[18px] text-wrap md:w-2xl px-[10%] md:px-[1%] md:text-white md:text-wrap md:w-xl">Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
     </div>
     <div class="md:flex justify-between container mx-auto gap-15 max-w-6xl px-6 overflow-x-hidden">
         <div class="flex">
@@ -31,7 +32,7 @@
                 </label>
             </form>
         </div>
-        <div class="md:flex place-content-center px-[5%] py-4 gap-2">
+        <div class="md:flex place-content-center px-[5%] py-4 md:py-0 gap-2">
             <form method="GET" action="{% url 'search_by_query' %}" class="gap-2 flex md:place-content-center md:gap-4">
                 <input type="text" name="q" id="search_query" value="{{ query|default:'' }}"
                 class="text-white border border-white border-1 md:border-2 h-[35px] rounded-[8px] w-[215px] md:w-[250px] px-2 md:px-4 md:py-4 md:self-center
@@ -69,11 +70,11 @@
                             <h1 class="font-bold text-[16px] md:text-[1.21rem] pt-4 overflow-x-hidden px-2 text-black opacity-[.8]">
                                 {{ blog.title | safe}}
                             </h1>
-                            <p class="text-[12px] opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
+                            <p class="text-[12px] md:text-[14px] opacity-[0.7] overflow-y-hidden text-ellipsis px-2">
                                 {{ blog.description | safe }}
                             </p>
                         </div>
-                        <div class="text-[12px] flex justify-between px-2 font-md text-[#a5a5a5]">
+                        <div class="text-[12px] md:text-[14px] flex justify-between px-2 font-md text-[#a5a5a5]">
                             <p class="text-[#A92655]">{{ blog.author }}</p>
                             <p class="text-black opacity-[.7]">{{ blog.uploaded_date }}</p>
                         </div>

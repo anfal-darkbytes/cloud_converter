@@ -10,19 +10,19 @@
             <img class="object-cover h-56 md:h-96 w-full md:px-20" src="{{ blog_obj.image.url }}"
                  alt="image not found">
         </div>
-        <div class='px-8 md:px-20 overflow-hidden flex flex-wrap flex-col md:mx-36'>
+        <div class='px-4 md:px-20 overflow-hidden flex flex-wrap flex-col md:mx-36'>
             <h1 class="font-bold text-[18px] md:text-[1.51rem] py-2">{{ blog_obj.title }}</h1>
-            <div class="flex justify-between italic pb-4 text-[12px] md:text-[14px]">
+            <div class="flex justify-between italic pb-4 text-[12px] md:text-[16px]">
                 <h1 class="font-md text-[#A92655]">By {{ blog_obj.author }}</h1>
                 <p>{{ blog_obj.uploaded_date }}</p>
             </div>
-            <p class="items-center text-[12px] pb-4">
+            <p class="items-center text-[12px] md:text-[16px] italic pb-4">
             {{ blog_obj.description }}
             </p>
-            <div id='body' class="flex justify-start pb-4 md:pb-8 text-[12px] md:text-[14px]">
+            <div id='body' class="flex justify-start pb-4 md:pb-8 text-[12px] md:text-[16px]">
                 <p class="justify-start">{{ blog_obj.body | safe }}</p>
             </div>
-            <div class="flex justify-start pb-8 text-[12px] md:text-[14px] font-semibold">
+            <div class="flex justify-start pb-8 text-[12px] md:text-[16px] font-semibold">
                 <p>#{{ blog_obj.hash_tag | safe }}</p>
             </div>
         </div>
