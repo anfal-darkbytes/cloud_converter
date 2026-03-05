@@ -1,40 +1,52 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<!--    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>CloudConverter</title>
-</head>
-<body class="bg-gradient-to-r from-[#A92655] to-[#FD8D67]">
-    <div class="container mx-auto h-[700px] w-[400px] border border-[#f2f2f2] rounded-[8px] my-[8%] bg-white">
-        <div class="justify-items-center">
-            <h1 class="py-8 font-bold text-[28px] opacity-[.8]">Login</h1>
+{% extends 'base.html' %}
+{% block cloudConverterBody %}
+
+    <div class="justify-center justify-items-center container my-[4%] mx-auto w-[300px] md:my-[8%] md:h-[700px] md:w-[600px] border-2
+border-[#f8f8f8] rounded-[8px] bg-white">
+        <div class="justify-items-right px-4">
+            <h1 class="py-4 md:py-8 font-bold text-[18px] md:text-[28px] opacity-[.8]">LOGIN</h1>
         </div>
-        <div class="px-8">
-            <form id="login-form">
-                <label class="text-[12px] py-4">Username</label>
-                <br>
-                <input type="text" id="username"
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message-container">
+              <p class="text-[12px] md:text-[16px] font-bold opacity-[.7] pb-4 {% if 'success' in message.tags %}text-green-500{% else %}text-red-500{% endif %}">
+                *{{ message }}
+              </p>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <div class="px-4 md:px-8">
+            <form id="login-form" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <label class="text-[12px] py-4" for="email">Email</label>
+
+                <input type="text" id="email" name="email"
                        class="container my-2 py-2 px-4 border-1 border-[#A92655] rounded-[8px] outline-none" required>
-                <br>
-                <label class="text-[12px] py-4">Password</label>
-                <br>
-                <input type="password" id="password"
+
+                <label class="text-[12px] py-4" for="password">Password</label>
+
+                <input type="password" id="password" name="password"
                        class="container my-2 py-2 px-4 bg-white border-1 border-[#A92655] rounded-[8px] outline-none"
-                       required><br>
+                       required>
             </form>
         </div>
-        <div class="px-8 justify-items-end">
-            <p class=" text-[12px]">Forgot password?</p>
-        </div>
-        <div class="container mx-auto px-[28%] py-8">
-            <button form="login-form" type='submit' class="container mx-auto bg-[#A92655] rounded-[25px] h-[50px]
-            w-[200px] text-white text-[14px]">LOGIN
+<!--        <div class="px-4 md:px-8 justify-items-end">-->
+<!--            <p class="justify-right text-[12px] md:text-[16px]">Forgot password?</p>-->
+<!--        </div>-->
+        <div class="justify-self-center pt-4 pb-8 md:py-8">
+            <button form="login-form" type='submit'
+                    class="justify-self-center bg-[#A92655] rounded-[25px] h-[40px] md:h-[50px]
+           w-[150px] md:w-[200px] text-white text-[12px] md:text-[16px]">LOGIN
             </button>
         </div>
+
+        <div
+                class="flex justify-center py-1 container my-2 items-stretch gap-2 w-[90%] border-1 border-[#A92655] rounded-[8px] md:py-8">
+           <div
+                   class="self-center w-[30px] h-[30px]"><img src="https://cloudconvert.com/images/g-logo.png"
+                                                               alt="G"></div>
+            <div class="self-center"><h1>Google</h1></div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

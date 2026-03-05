@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block cloudConverterBody %}
+
+    <div class="justify-center justify-items-center container my-[4%] mx-auto w-[300px] md:my-[8%] md:h-[700px] md:w-[600px] border-2
+border-[#f8f8f8] rounded-[8px] bg-white">
+        <div class="justify-items-right px-4">
+            <h1 class="py-4 md:py-8 font-bold text-[18px] md:text-[28px] opacity-[.8]">SIGNUP</h1>
+        </div>
+
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message-container">
+              <p class="text-[12px] md:text-[16px] font-bold opacity-[.7] pb-4 {% if 'success' in message.tags %}text-green-500{% else %}text-red-500{% endif %}">
+                *{{ message }}
+              </p>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+
+        <div class="px-4 md:px-8">
+            <form id="signup-form" method="POST" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <label class="text-[12px] py-4" for="full_name">Full Name</label>
+
+                <input type="text" id="full_name" name="full_name"
+                       class="container my-2 py-2 px-4 border-1 border-[#A92655] rounded-[8px] outline-none" required>
+
+                <label class="text-[12px] py-4" for="email">Email</label>
+
+                <input type="email" id="email" name="email"
+                       class="container my-2 py-2 px-4 border-1 border-[#A92655] rounded-[8px] outline-none" required>
+
+                <label class="text-[12px] py-4" for="password">Password</label>
+
+                <input type="password" id="password" name="password"
+                       class="container my-2 py-2 px-4 bg-white border-1 border-[#A92655] rounded-[8px] outline-none"
+                       required>
+
+                <label class="text-[12px] py-4" for="confirm_password">Confirm Password</label>
+
+                <input type="password" id="confirm_password" name="confirm_password"
+                       class="container my-2 py-2 px-4 bg-white border-1 border-[#A92655] rounded-[8px] outline-none"
+                       required>
+            </form>
+        </div>
+        <div class="justify-self-center pb-8 pt-4 md:py-8">
+            <button form="signup-form" type='submit'
+                    class="justify-self-center bg-[#A92655] rounded-[25px] h-[40px] md:h-[50px]
+           w-[150px] md:w-[200px] text-white text-[12px] md:text-[16px]">SIGNUP
+            </button>
+        </div>
+
+        <div class="flex justify-center py-1 container my-2 items-stretch gap-2 w-[90%] border-1 border-[#A92655]
+        rounded-[8px] md:py-8">
+           <div class="self-center w-[30px] h-[30px]"><img src="https://cloudconvert.com/images/g-logo.png"
+                                                           alt="G"></div>
+            <div class="self-center"><h1>Google</h1></div>
+        </div>
+    </div>
+{% endblock %}
