@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% block cloudConverterBody %}
 
-    <div class="justify-center justify-items-center container my-[4%] mx-auto w-[300px] md:my-[8%] md:h-[700px] md:w-[600px] border-2
+    <div
+            class="justify-center justify-items-center container my-[4%] mx-auto w-[300px] md:my-[8%] md:h-[90%] md:w-[600px] border-2
 border-[#f8f8f8] rounded-[8px] bg-white">
         <div class="justify-items-right px-4">
             <h1 class="py-4 md:py-8 font-bold text-[18px] md:text-[28px] opacity-[.8]">LOGIN</h1>
@@ -34,18 +35,17 @@ border-[#f8f8f8] rounded-[8px] bg-white">
 <!--        <div class="px-4 md:px-8 justify-items-end">-->
 <!--            <p class="justify-right text-[12px] md:text-[16px]">Forgot password?</p>-->
 <!--        </div>-->
-        <div class="justify-self-center pt-4 pb-8 md:py-8">
+        <div class="justify-self-center pb-8 pt-4 md:pb-12">
             <button form="login-form" type='submit'
                     class="justify-self-center bg-[#A92655] rounded-[25px] h-[40px] md:h-[50px]
            w-[150px] md:w-[200px] text-white text-[12px] md:text-[16px]">LOGIN
             </button>
         </div>
 
-        <div
-                class="flex justify-center py-1 container my-2 items-stretch gap-2 w-[90%] border-1 border-[#A92655] rounded-[8px] md:py-8">
-           <div
-                   class="self-center w-[30px] h-[30px]"><img src="https://cloudconvert.com/images/g-logo.png"
-                                                               alt="G"></div>
+        <div class="flex justify-center py-1 container my-2 md:my-4 items-stretch gap-2 w-[90%] border-1 border-[#A92655] rounded-[8px] md:py-2">
+           <div class="self-center w-[30px] h-[30px]">
+               <img src="https://cloudconvert.com/images/g-logo.png" alt="G">
+           </div>
             <div class="self-center"><h1>Google</h1></div>
         </div>
     </div>

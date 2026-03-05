@@ -10,8 +10,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
 
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('home')
+    # if request.user.is_authenticated:
+    #     return redirect('home')
 
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -57,32 +57,6 @@ def signup(request):
             print(f'error: {e}')
 
     return render(request, 'accounts/signup.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class RegisterView(generics.CreateAPIView):
