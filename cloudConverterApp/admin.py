@@ -9,3 +9,4 @@ class CustomAdminClass(ModelAdmin):
 @admin.register(ContactUsModel)
 class CustomContactUsModel(ModelAdmin):
     list_display= ('name',)
+

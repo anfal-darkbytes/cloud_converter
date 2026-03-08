@@ -1,13 +1,15 @@
-from rest_framework import generics, status
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status
 from .models import CustomUser
-from .serializers import RegisterSerializer
+from .serializers import RegistrationSerializer, KeySerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import LoginSerializer
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 def login(request):
     # if request.user.is_authenticated:
@@ -58,38 +60,22 @@ def signup(request):
 
     return render(request, 'accounts/signup.html')
 
+class UserRegistrationView(APIView):
+    permission_classes = [AllowAny]
 
-class RegisterView(generics.CreateAPIView):
-    queryset = CustomUser.objects.all()
-    serializer_class = RegisterSerializer
+    def post(self, request):
+        serializer = RegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "success": True,
+                "message": "User registered successfully",
+                "data": serializer.data
+            }, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-
-        refresh = RefreshToken.for_user(user)
-
-        return Response({
-            "success": True,
-            "message": "User registered successfully.",
-            "data": {
-                "user": {
-                    "id": user.id,
-                    "email": user.email,
-                    "full_name": user.full_name,
-                },
-                "tokens": {
-                    "refresh": str(refresh),
-                    "access": str(refresh.access_token),
-                }
-            }
-        }, status=status.HTTP_201_CREATED)
-
-
-
-
-class LoginView(APIView):
+class UserLoginView(APIView):
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
@@ -110,3 +96,21 @@ class LoginView(APIView):
                 "tokens": tokens
             }
         }, status=status.HTTP_200_OK)
+
+class CreateApiKey(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    def post(self, request):
+        email = request.data.get('email')
+        if not email:
+            return Response({
+                'success':False,
+                'error': 'Email field is missing'
+            })
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return Response({
+            "success": True,
+            "data": serializer.data
+        })

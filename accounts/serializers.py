@@ -1,36 +1,35 @@
-from .models import CustomUser
+from .models import CustomUser, ApiKey
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .utils import generate_unique_uuid_string
 
-class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'full_name', 'password']
+        fields = ['full_name', 'email', 'password', 'password2']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        if CustomUser.objects.filter(email=attrs['email']).exists():
+            raise serializers.ValidationError({"error": "User with this email already exists"})
+        return attrs
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(
-            email=validated_data['email'],
             full_name=validated_data['full_name'],
+            email=validated_data['email'],
             password=validated_data['password']
         )
         return user
-
-    def to_representation(self, instance):
-        refresh = RefreshToken.for_user(instance)
-
-        return {
-            "id": instance.id,
-            "email": instance.email,
-            "full_name": instance.full_name,
-            "tokens": {
-                "refresh": str(refresh),
-                "access": str(refresh.access_token),
-            }
-        }
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -38,7 +37,7 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, data):
         user = authenticate(
-            email=data['email'],
+            username=data['email'],
             password=data['password']
         )
 
@@ -57,3 +56,23 @@ class LoginSerializer(serializers.Serializer):
                 "access": str(refresh.access_token),
             }
         }
+
+
+class KeySerializer(serializers.Serializer):
+    class Meta:
+        model = CustomUser
+        fields = ['email']
+
+    def validate(self, attrs):
+        if not CustomUser.objects.filter(email=attrs['email']).exists():
+            raise serializers.ValidationError({'error':'User not found'})
+        return attrs
+
+    def create(self, validated_data):
+        user = CustomUser.objects.filter(email=validated_data['email'])
+        key = generate_unique_uuid_string()
+        created_key = ApiKey.objects.create(
+            user=user,
+            key = key,
+        )
+        return created_key

@@ -7,9 +7,11 @@ from django.core.files.base import ContentFile
 from ..models import ConvertModel, UploadMultiFileModel, ConvertedMultiFileModel
 from ..serializers import ConverterSerializer
 from ..utils import execute_conversion, get_filename
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class Convert(APIView):
     permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request):

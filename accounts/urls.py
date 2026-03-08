@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import RegisterView, LoginView, login, signup
+from .views import UserLoginView, login, signup, UserRegistrationView, CreateApiKey
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -8,8 +8,9 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register-api'),
-    path('api/login/', LoginView.as_view(), name='login-api'),
+    path('api/create_key/', CreateApiKey.as_view(), name='create-key'),
+    path('api/register/', UserRegistrationView.as_view(), name='register-api'),
+    path('api/login/', UserLoginView.as_view(), name='login-api'),
     path('login/', login, name='login'),
     path('signup/', signup, name='signup'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
